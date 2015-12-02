@@ -1,0 +1,14 @@
+<!-- Cover photo and profile photo section -->
+<style media="all">
+  .cover-photo { background-image: url(<%= asset_path('bowl.jpg') %>); }
+</style>
+
+<section class="row profile-photos">
+
+  <div class="col-xs-12 cover-photo"></div>
+  <div class="col-xs-3 profile-photo">
+    <%= image_tag "jeff.jpg", class: "img-responsive" %>
+  </div>
+  <div class="col-xs-4 profile-text"><h1>Jeff Lebowski</h1></div>
+
+</section>

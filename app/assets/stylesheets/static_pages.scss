@@ -1,0 +1,183 @@
+// Place all the styles related to the StaticPages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// General Styles
+
+$light-gray: #bbb;
+$dark-gray: #888;
+
+.light-text {
+  color: $dark-gray;
+}
+
+
+// Signup page.
+
+#sign-up-reasons {
+  h2 {
+    padding-top: 40px;
+  }
+  li {
+    padding-top: 10px;
+  }
+}
+
+
+// Navbar Styles
+
+// Various styles to change the color of bootstrap's
+// Inverse Navbar, get the brand logo and text vertically  
+// aligned, and change the font size and color on elements
+
+.navbar {
+  background-color: #2B78E4;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid #000;
+  color: white;
+    a {
+      color: #D0D0D0;
+    }
+}
+
+#top-bar .navbar-brand {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size: 1.75em;
+  color: white;
+    img {
+      height: 20px;
+      display: inline-block;
+      margin-right: 5px;
+    } 
+
+}
+
+#top-bar .navbar-nav li>a {
+  color: white;
+  font-size: 1.25em;
+}
+
+
+// Push content out from under fixed navbar
+
+body { 
+  padding-top: 50px; 
+}
+
+
+// Cover/Profile Picture Styles
+
+.cover-photo {
+  background-size: cover; 
+  background-position: 0 25%;
+  height: 250px;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+.profile-photos {
+  position: relative;
+}
+
+.profile-photo {
+  position: absolute;
+  bottom: -25px;
+  img {
+    border: 1px solid #000;
+  }
+}
+
+.profile-text {
+  position: absolute;
+  bottom: 0;
+  margin-left: 24%;
+  h1 {
+    color: white;
+    text-shadow: 
+    -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; 
+  }
+}
+
+
+// Middle Navigation Section
+
+.middle-nav {
+  border: 1px solid #000;
+  border-bottom-right-radius:4px;
+  border-bottom-left-radius:4px;
+  .nav-pills>li>a {
+    border-radius: 0;
+    color: #000;
+    font-weight: 700;
+  }
+  .nav-pills>li.active>a {
+    background-color: $light-gray;
+    color: #000;
+    font-weight: 700;
+  }
+}
+
+
+// Generic Main Content
+
+.about-main, .friends-main, .photos-main {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  .table th, .table td { 
+     border-top: none; 
+  }
+}
+
+
+// Timeline Content
+
+.timeline-main {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.panel-heading, .panel-footer-left, {
+  text-align: center;
+}
+
+.newsfeed img {
+  width: 64px;
+}
+
+.newsfeed {
+  .media {
+    margin-bottom: 10px;
+  }
+}
+
+.comment {
+  margin-left: 20px;
+}
+
+
+// Friends Content
+
+.friend-box {
+  img {
+    width: 100px;
+  }
+  li {
+    vertical-align: middle;
+  }
+}
+
+
+// Photos Content
+
+.photo-gallery .timestamp {
+  text-align: center;
+  visibility: hidden;
+  }
+
+.photo-gallery:hover > a>.timestamp {
+  visibility: visible;
+}
+

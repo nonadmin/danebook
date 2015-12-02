@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Danebook!</title>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+
+  <%= render "shared/topbar" %>
+
+  <!-- Main body container -->
+  <div class="container">
+
+    <% unless current_page?(action: 'home') %>
+
+      <%= render "shared/profile_cover_photo" %>
+
+      <%= render "shared/middle_nav" %>
+
+    <% end %>
+
+    <%= yield %>
+
+  </div><!-- End main body container -->
+
+</body>
+</html>

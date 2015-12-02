@@ -1,0 +1,20 @@
+<!-- Middle navigation, offset and nested to stay away from profile picture -->
+<section class="row middle-nav">
+
+  <div class="col-xs-9 col-xs-offset-3">
+    <div class="row">
+    
+      <div class="col-xs-12">
+        <ul class="nav nav-pills">
+          <%= nav_link "Edit Profile",  about_edit_path, class: "pull-right" %>
+          <%= nav_link "Timeline",      timeline_path %>
+          <%= nav_link "About",         about_path %>
+          <%= nav_link "Photos",        photos_path, badge: 123 %>
+          <%= nav_link "Friends",       friends_path, badge: 542 %>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</section>
