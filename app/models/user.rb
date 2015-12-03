@@ -1,0 +1,26 @@
+class User < ActiveRecord::Base
+  has_secure_password
+  before_create :generate_token
+
+  validates :first_name, :last_name, :email, :birthday, :gender, presence: true 
+  validates :email, uniqueness: true
+  validates :password, length: { in: 8..64 },
+                       format: { with: /(?=.*\d)(?=.*([a-z]))(?=.*([A-Z])).{8,}/,
+                                 message: "requires 1 Uppercase, 1 lowercase, and 1 digit" },
+                       allow_nil: true
+
+  def regenerate_auth_token
+    self.auth_token = nil
+    generate_token
+    save!
+  end
+
+
+  def generate_token
+    begin
+      self[:auth_token] = SecureRandom.urlsafe_base64
+    end while User.exists?(auth_token: self[:auth_token])
+  end
+
+
+end

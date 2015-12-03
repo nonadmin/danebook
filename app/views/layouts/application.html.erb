@@ -12,10 +12,12 @@
 
   <%= render "shared/topbar" %>
 
+  <%= render "shared/flash" %>
+
   <!-- Main body container -->
   <div class="container">
 
-    <% unless current_page?(action: 'home') %>
+    <% if signed_in_user? %>
 
       <%= render "shared/profile_cover_photo" %>
 
