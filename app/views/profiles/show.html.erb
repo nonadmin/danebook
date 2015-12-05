@@ -1,7 +1,3 @@
-<%= render partial: 'shared/profile_cover_photo', locals: {user: @user} %>
-
-<%= render partial: "shared/middle_nav", locals: {user: @user} %>
-
 <!-- Main content, "About Me" -->
 <div class="row">
   <main class="panel panel-default about-main">
@@ -9,7 +5,7 @@
     <header class="panel-heading clearfix">
       <% if current_user == @user %>        
         <div class="pull-right">
-          <%= link_to "Edit your Profile", edit_user_path(@user), class: "btn btn-primary btn-xs" %>
+          <%= link_to "Edit your Profile", edit_user_profile_path(@user.id), class: "btn btn-primary btn-xs" %>
         </div>
       <% end %>
       <h2 class="panel-title">About</h2>
@@ -25,19 +21,19 @@
             </tr>
             <tr>
               <td>Birthday:</td>
-              <td><%= @user.birthday.strftime("%B #{@user.birthday.day.ordinalize}, %Y") %></td>
+              <td><%= @user.profile.birthday.strftime("%B #{@user.profile.birthday.day.ordinalize}, %Y") %></td>
             </tr>
             <tr>
               <td>College:</td>
-              <td><%= !@user.college.blank? ? @user.college : "Not Listed" %></td>
+              <td><%= !@user.profile.college.blank? ? @user.profile.college : "Not Listed" %></td>
             </tr>
             <tr>
               <td>Hometown:</td>
-              <td><%= !@user.home_town.blank? ? @user.home_town : "Not Listed" %></td>
+              <td><%= !@user.profile.hometown.blank? ? @user.profile.hometown : "Not Listed" %></td>
             </tr>
             <tr>
               <td>Currently Lives:</td>
-              <td><%= !@user.current_town.blank? ? @user.current_town : "Not Listed" %></td>
+              <td><%= !@user.profile.current_location.blank? ? @user.profile.current_location : "Not Listed" %></td>
             </tr>
 
             <tr>
@@ -49,17 +45,17 @@
             </tr>
             <tr>
               <td>Telephone:</td>
-              <td><%= !@user.phone.blank? ? @user.phone : "Not Listed" %></td>
+              <td><%= !@user.profile.phone.blank? ? @user.profile.phone : "Not Listed" %></td>
             </tr>
           </table>
         </div>
 
         <div class="col-md-8">
           <h4>Words to Live By</h4>
-          <p><%= !@user.quote.blank? ? @user.quote : "None Given" %></p>
+          <p><%= !@user.profile.quote.blank? ? @user.profile.quote : "None Given" %></p>
 
           <h4>About Me</h4>
-          <p><%= !@user.about.blank? ? @user.about : "No Information" %></p>
+          <p><%= !@user.profile.about.blank? ? @user.profile.about : "No Information" %></p>
         </div>
       
       </div>

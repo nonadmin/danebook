@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
 
   def check_user
-    unless params[:id] == current_user.id.to_s
+    unless params[:user_id] == current_user.id.to_s
       redirect_to signup_path
       flash[:danger] = "Unauthorized"
     end

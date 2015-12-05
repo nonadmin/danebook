@@ -6,11 +6,11 @@ class SessionsController < ApplicationController
     user = User.find_by_email(session_params[:email])
     if user && user.authenticate(session_params[:password])
       sign_in(user)
-      flash[:success] = "Welcome back, #{user.first_name.capitalize}"
-      redirect_to timeline_path
+      flash[:success] = "Welcome back, #{user.profile.first_name.capitalize}"
+      redirect_to user_profile_path(user.id)
     else
       flash[:danger] = "We couldn't sign you in!"
-      redirect_to timeline_path
+      redirect_to signup_path
     end
   end
 

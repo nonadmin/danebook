@@ -1,21 +1,22 @@
 <%= form_for(user) do |user_form| %>
-    
+  <%= user_form.fields_for :profile do |profile_form| %>
+
   <div class="row">
     <div class="col-xs-6">
       <div class="form-group">
-        <%= user_form.label :first_name, class: "sr-only" %>
-        <%= user_form.text_field :first_name, placeholder: "First Name" %>
+        <%= profile_form.label :first_name, class: "sr-only" %>
+        <%= profile_form.text_field :first_name, placeholder: "First Name" %>
         <%= render partial: 'shared/form_error', 
-                   locals: {errors: user.errors.full_messages_for(:first_name)} %>
+                   locals: {errors: user.profile.errors.full_messages_for(:first_name)} %>
        </div>
     </div>
 
     <div class="col-xs-6">
       <div class="form-group">
-        <%= user_form.label :last_name, class: "sr-only" %>
-        <%= user_form.text_field :last_name, placeholder: "Last Name" %>
+        <%= profile_form.label :last_name, class: "sr-only" %>
+        <%= profile_form.text_field :last_name, placeholder: "Last Name" %>
         <%= render partial: 'shared/form_error', 
-                   locals: {errors: user.errors.full_messages_for(:last_name)} %>
+                   locals: {errors: user.profile.errors.full_messages_for(:last_name)} %>
       </div>
     </div>
   </div>
@@ -45,29 +46,30 @@
       <%= label_tag do %>
       Birthday
       <div class="form-inline">
-      <%= user_form.date_select :birthday, order: [:month, :day, :year],
-                                           prompt: true,
-                                           start_year: 1920,
-                                           end_year: Date.today.year - 12 %>
+      <%= profile_form.date_select :birthday, order: [:month, :day, :year],
+                                              prompt: true,
+                                              start_year: Date.today.year - 90,
+                                              end_year: Date.today.year - 12 %>
       </div>
       <%= render partial: 'shared/form_error', 
-                 locals: {errors: user.errors.full_messages_for(:birthday)} %>
+                 locals: {errors: user.profile.errors.full_messages_for(:birthday)} %>
       <% end %>
     </div>
 
 
   <div>
     <%= label_tag class: "radio-inline" do %>
-      <%= user_form.radio_button :gender, "female" %> Female 
+      <%= profile_form.radio_button :gender, "female" %> Female 
     <% end %>
     <%= label_tag class: "radio-inline" do %>
-      <%= user_form.radio_button :gender, "male" %> Male 
+      <%= profile_form.radio_button :gender, "male" %> Male 
     <% end %>
     <%= render partial: 'shared/form_error', 
-               locals: {errors: user.errors.full_messages_for(:gender)} %>
+               locals: {errors: user.profile.errors.full_messages_for(:gender)} %>
   </div>     
 
   <%= user_form.submit "Sign Up!", class: "btn btn-success btn-block" %>
-
+  
+  <% end %>
 <% end %>
   

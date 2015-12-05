@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   
-  
-
-  get '/timeline'   => 'static_pages#timeline'
   get '/friends'    => 'static_pages#friends'
   get '/photos'     => 'static_pages#photos'
 
-  resources :users, only: [:show, :new, :create, :edit, :update]
+  resources :users, only: [:show, :new, :create] do
+    resource :profile, only: [:show, :edit, :update]
+  end
+
   resource :sessions, only: [:create, :destroy]
 
   get 'signup'      => 'users#new'
