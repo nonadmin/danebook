@@ -1,4 +1,4 @@
-<%= render partial: "shared/profile_cover_photo", locals: {user: @user} %>
+<%= render partial: 'shared/profile_cover_photo', locals: {user: @user} %>
 
 <%= render partial: "shared/middle_nav", locals: {user: @user} %>
 
@@ -7,9 +7,11 @@
   <main class="panel panel-default about-main">
 
     <header class="panel-heading clearfix">
+      <% if current_user == @user %>        
         <div class="pull-right">
-          <%= link_to "Edit your Profile", about_edit_path, class: "btn btn-primary btn-xs" %>
+          <%= link_to "Edit your Profile", edit_user_path(@user), class: "btn btn-primary btn-xs" %>
         </div>
+      <% end %>
       <h2 class="panel-title">About</h2>
     </header>
 
@@ -23,19 +25,19 @@
             </tr>
             <tr>
               <td>Birthday:</td>
-              <td>December 4th, 1942</td>
+              <td><%= @user.birthday.strftime("%B #{@user.birthday.day.ordinalize}, %Y") %></td>
             </tr>
             <tr>
               <td>College:</td>
-              <td>Some</td>
+              <td><%= !@user.college.blank? ? @user.college : "Not Listed" %></td>
             </tr>
             <tr>
               <td>Hometown:</td>
-              <td>Los Angeles, CA USA</td>
+              <td><%= !@user.home_town.blank? ? @user.home_town : "Not Listed" %></td>
             </tr>
             <tr>
               <td>Currently Lives:</td>
-              <td>Los Angeles, CA USA</td>
+              <td><%= !@user.current_town.blank? ? @user.current_town : "Not Listed" %></td>
             </tr>
 
             <tr>
@@ -43,22 +45,21 @@
             </tr>
             <tr>
               <td>Email:</td>
-              <td>thedude@juno.com</td>
+              <td><%= @user.email %></td>
             </tr>
             <tr>
               <td>Telephone:</td>
-              <td>555-123-4567</td>
+              <td><%= !@user.phone.blank? ? @user.phone : "Not Listed" %></td>
             </tr>
           </table>
         </div>
 
         <div class="col-md-8">
           <h4>Words to Live By</h4>
-          <p>I'm the Dude. So that's what you call me. You know, that or, uh, His Dudeness, or uh, Duder, or El Duderino if you're not into the whole brevity thing.</p>
+          <p><%= !@user.quote.blank? ? @user.quote : "None Given" %></p>
 
           <h4>About Me</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, illo. Illum, ad, nostrum sit officiis veniam consectetur sed perspiciatis unde quis iusto, molestiae laudantium itaque mollitia non, dolores repellendus illo. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio nemo fuga fugiat, officiis ducimus cum enim veritatis sequi necessitatibus aut error, vel quis nobis mollitia velit sapiente amet. Unde, modi.
-          </p>
+          <p><%= !@user.about.blank? ? @user.about : "No Information" %></p>
         </div>
       
       </div>

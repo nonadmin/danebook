@@ -1,9 +1,7 @@
 class StaticPagesController < ApplicationController
 
-  def home
-    @user = User.new
-  end
-
+  skip_before_action :require_sign_in, only: [:timeline, :friends, :photos]
+  
 
   def timeline
     
@@ -19,14 +17,5 @@ class StaticPagesController < ApplicationController
     
   end
 
-
-  def about
-    
-  end
-
-
-  def about_edit
-    
-  end
 
 end

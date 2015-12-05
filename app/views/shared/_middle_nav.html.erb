@@ -6,9 +6,9 @@
     
       <div class="col-xs-12">
         <ul class="nav nav-pills">
-          <%= nav_link "Edit Profile",  about_edit_path, class: "pull-right" %>
+          <%= nav_link "Edit Profile",  edit_user_path(user), class: "pull-right" %>
           <%= nav_link "Timeline",      timeline_path %>
-          <%= nav_link "About",         about_path %>
+          <%= nav_link "About",         user_path(user) %>
           <%= nav_link "Photos",        photos_path, badge: 123 %>
           <%= nav_link "Friends",       friends_path, badge: 542 %>
         </ul>

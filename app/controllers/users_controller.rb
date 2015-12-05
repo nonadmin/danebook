@@ -1,5 +1,13 @@
 class UsersController < ApplicationController
 
+  skip_before_action :require_sign_in, only: [:new, :create, :show]
+  before_action :check_user, only: [:edit, :update]
+
+  def show
+    @user = User.find(params[:id])
+  end
+
+
   def new
     @user = User.new
   end
@@ -16,6 +24,24 @@ class UsersController < ApplicationController
     end
   end
 
+  
+  def edit
+    @user = User.find(params[:id])
+  end
+
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:success] = "Profile Updated!"
+      redirect_to @user
+    else
+      flash.now[:danger] = "Oops, something went wrong!"
+      render :edit
+    end
+  end
+
+
 
   private
 
@@ -27,7 +53,13 @@ class UsersController < ApplicationController
                                   :password,
                                   :password_confirmation,
                                   :birthday,
-                                  :gender )
+                                  :gender,
+                                  :about,
+                                  :quote,
+                                  :college,
+                                  :home_town,
+                                  :current_town,
+                                  :phone )
   end
 
 end
