@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :profile
   validates_associated :profile
 
+  has_many :posts
+
   validates :email, presence: true, 
                     uniqueness: true
   validates :password, length: { in: 8..64 },

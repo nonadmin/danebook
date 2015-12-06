@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   get '/friends'    => 'static_pages#friends'
   get '/photos'     => 'static_pages#photos'
 
-  resources :users, only: [:show, :new, :create] do
+  resources :users, only: [:new, :create] do
     resource :profile, only: [:show, :edit, :update]
+    resources :posts, only: [:create]
+    get 'timeline'  => 'posts#index'
   end
 
   resource :sessions, only: [:create, :destroy]

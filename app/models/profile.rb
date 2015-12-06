@@ -5,6 +5,11 @@ class Profile < ActiveRecord::Base
   validate :age_allowed
 
 
+  def full_name
+    "#{first_name.capitalize}" + " " + "#{last_name.capitalize}"
+  end
+
+
   # Make sure the extremely young and the potentially immortal can't sign up
   def age_allowed
     if birthday && birthday.year < Date.today.year - 90

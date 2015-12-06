@@ -1,0 +1,143 @@
+<!-- Container for all Timeline page content -->
+<main class="row timeline-main">
+  <div class="row"><!-- Double row is used to correct panel margin -->
+
+
+    <!-- Right Timeline Column, post box and feed 
+    Column is pushed to the right at medium and above so when stacked
+    at smaller sizes the Timeline/Post area appears above.-->
+    <div class="col-sm-8 col-sm-push-4 newsfeed">
+
+
+      <!-- New Timeline Post input textarea -->
+      <%= form_for([@user, @post]) do |post_form| %>
+        <section class="panel panel-default">
+          
+          <header class="panel-heading">
+            <h4 class="panel-title">Post</h4>
+          </header>
+          <div class="panel-body">
+          <div class="form-group">
+            <%= post_form.label :body, class: "sr-only" %>
+            <%= post_form.text_area :body, placeholder: "Tell the world something...", rows: 4 %>
+            <%= render partial: 'shared/form_error', locals: {errors: @post.errors.full_messages_for(:body)} %>
+          </div>
+          </div>
+          <div class="panel-footer clearfix">
+            <%= post_form.hidden_field :user_id, value: @user.id %>
+            <%= post_form.submit "Post", class: "btn btn-primary pull-right" %>
+          </div>
+          
+        </section>
+      <% end %>
+
+      <!-- Timeline News Feed -->      
+      <!-- Another post, with comments -->
+      <%= render partial: @user.posts.select(&:persisted?) %>
+
+    </div><!-- End Right Timeline Column -->
+
+
+
+    <!-- Left Timeline Column, about, photos, friends -->
+    <div class="col-sm-4 col-sm-pull-8">
+      
+      <!-- Small About box -->
+      <section class="panel panel-default">
+
+          <header class="panel-heading">
+            <h4 class="panel-title">About</h4>
+          </header>
+
+          <div class="panel-body timeline-about">
+
+            <table class="table table-condensed">
+              <tr>
+                <th colspan="2">Basic Information</th>
+              </tr>
+              <tr>
+                <td>Birthday:</td>
+                <td><%= @user.profile.birthday.strftime("%B #{@user.profile.birthday.day.ordinalize}, %Y") %></td>
+              </tr>
+              <tr>
+                <td>College:</td>
+                <td><%= !@user.profile.college.blank? ? @user.profile.college : "Not Listed" %></td>
+              </tr>
+              <tr>
+                <td>Hometown:</td>
+                <td><%= !@user.profile.hometown.blank? ? @user.profile.hometown : "Not Listed" %></td>
+              </tr>
+              <tr>
+                <td>Currently Lives:</td>
+                <td><%= !@user.profile.current_location.blank? ? @user.profile.current_location : "Not Listed" %></td>
+              </tr>
+            </table>
+
+          </div>
+
+      </section>
+
+
+      <!-- Small photos box -->
+      <section class="panel panel-default">
+
+        <header class="panel-heading">
+          <h4 class="panel-title">Photos <span class="badge">123</span></h4>
+        </header>
+
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
+          </div>
+        </div>
+
+        <div class="panel-footer panel-footer-left">
+          <%= link_to "See More Photos", photos_path %>
+        </div>
+
+      </section>
+
+
+      <!-- Small friends box -->
+      <section class="panel panel-default">
+
+        <header class="panel-heading">
+          <h4 class="panel-title">Friends <span class="badge">542</span></h4>
+        </header>
+
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "user_silhouette_generic.gif" %></a></div>
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "user_silhouette_generic.gif" %></a></div>
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "user_silhouette_generic.gif" %></a></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "user_silhouette_generic.gif" %></a></div>
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "user_silhouette_generic.gif" %></a></div>
+            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "user_silhouette_generic.gif" %></a></div>
+          </div>
+        </div>
+
+        <div class="panel-footer panel-footer-left">
+          <%= link_to "See More Friends", friends_path  %>
+        </div>
+
+      </section>
+
+    </div><!-- End Left Timeline Column -->
+
+
+  </div><!-- End Double row, panel fix -->
+</main><!-- End Main timeline content -->
