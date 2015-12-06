@@ -11,10 +11,9 @@
   </div>
   <div class="col-xs-4 profile-text">
     <h1>
-      <% if user %>
-        <%= "#{user.profile.first_name.capitalize} #{user.profile.last_name.capitalize}" %>    
-      <% else %>
-        Jeff Lebowski
+      <%= user.profile.full_name %>
+      <% if signed_in_user? && current_user != user %>
+        <%= link_to "Add Friend", "#", class: "btn btn-primary"  %>
       <% end %>
     </h1>
   </div>

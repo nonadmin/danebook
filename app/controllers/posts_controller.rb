@@ -22,6 +22,18 @@ class PostsController < UsersController
   end
 
 
+  def destroy
+    @post = Post.find_by_id(params[:id])
+    if @post.destroy
+      flash[:success] = "Post deleted."
+      redirect_to user_timeline_path(@user)
+    else
+      flash[:danger] = "Oops, something went wrong!"
+      redirect_to user_timeline_path(@user)
+    end
+  end
+
+
   private
 
 

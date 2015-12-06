@@ -21,7 +21,12 @@
   </div>
   <div class="panel-footer clearfix">
     <ul class="list-inline">
-      <li class="pull-right"><a href="#">Delete</a></li>
+      <% if current_user == post.author %>
+        <li class="pull-right">
+          <%= link_to "Delete", user_post_path(post.author, post), method: :delete,
+                                data: { confirm: "Are you sure?" }  %>
+        </li>
+      <% end %>
       <li><a href="#">Like</a></li>
       <li><a href="#">Comment</a></li>
     </ul>
