@@ -5,9 +5,10 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create] do
     resource :profile, only: [:show, :edit, :update]
-    resources :posts, only: [:create, :destroy]
+    resources :posts, only: [:create, :destroy] 
     root               'posts#index'
     get 'timeline'  => 'posts#index'
+    resources :likes, only: [:create, :destroy]
   end
 
   resource :sessions, only: [:create, :destroy]

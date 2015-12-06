@@ -23,13 +23,22 @@
     <ul class="list-inline">
       <% if current_user == post.author %>
         <li class="pull-right">
-          <%= link_to "Delete", user_post_path(post.author, post), method: :delete,
-                                data: { confirm: "Are you sure?" }  %>
+          <%= link_to "Delete", user_post_path(post.author, post), method: :delete, data: { confirm: "Are you sure?" }  %>
         </li>
       <% end %>
-      <li><a href="#">Like</a></li>
+      <li>
+      <% if signed_in_user? %>       
+        <% if like_id = post.like_id_for(current_user) %>
+          <%= link_to "Unlike", user_like_path(current_user, like_id), method: :delete  %>
+        <% else %>
+          <%= link_to "Like", user_likes_path(current_user, likeable_type: "Post", likeable_id: post.id), method: :post %>
+        <% end %>
+      <% end %>
+      </li>
       <li><a href="#">Comment</a></li>
     </ul>
+    <p><%= liker_names(post, current_user) %></p>
+
     
     <form action="#"><p>
       <textarea name="comment-textarea" id="comment-textarea" rows="4" class="form-control" placeholder="Write a comment..."></textarea></p>

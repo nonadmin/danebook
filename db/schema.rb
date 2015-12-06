@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206171006) do
+ActiveRecord::Schema.define(version: 20151206200158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "creator_id",    null: false
+    t.integer  "likeable_id",   null: false
+    t.string   "likeable_type", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "likes", ["creator_id", "likeable_id", "likeable_type"], name: "index_likes_on_creator_id_and_likeable_id_and_likeable_type", unique: true, using: :btree
+  add_index "likes", ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.text     "body",       null: false

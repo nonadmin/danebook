@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates_associated :profile
 
   has_many :posts
+  has_many :likes, foreign_key: "creator_id", dependent: :destroy
 
   validates :email, presence: true, 
                     uniqueness: true
