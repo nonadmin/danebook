@@ -5,6 +5,7 @@ class PostsController < UsersController
 
 
   def index
+    store_location # Will need to redirect back here, a lot :)
     @post = @user.posts.new if @user == current_user
   end
 

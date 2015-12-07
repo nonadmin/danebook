@@ -5,12 +5,12 @@ class ProfilesController < UsersController
 
 
   def show
-    
+    store_location
   end
 
 
   def edit
-    
+    store_location
   end
 
 

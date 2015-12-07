@@ -10,7 +10,7 @@ class LikesController < ApplicationController
     else
       flash[:danger] = "Oops, something went wrong!"
     end
-    parent_redirect
+    redirect_back_or(root_path)
   end
 
 
@@ -22,23 +22,11 @@ class LikesController < ApplicationController
     else
       flash[:danger] = "Oops, something went wrong!"
     end
-    parent_redirect
+    redirect_back_or(root_path)
   end
 
 
   private
-
-
-  def parent_redirect
-    case @like.likeable_type
-    when "Post"
-      redirect_to user_timeline_path(@parent.author)
-    when "Comment"
-      redirect_to user_timeline_path(@parent.commentable.author)
-    else
-      redirect_to :root
-    end
-  end
 
 
   def find_parent

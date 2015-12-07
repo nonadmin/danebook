@@ -8,10 +8,10 @@ class CommentsController < ApplicationController
     @comment.author = current_user
     if @comment.save
       flash[:success] = "Commented!"
-      redirect_or_render
+      redirect_back_or(root_path)
     else
       flash[:danger] = "Oops, something went wrong!"
-      redirect_or_render(:render)
+      render_parent
     end
   end
 
@@ -20,10 +20,10 @@ class CommentsController < ApplicationController
     @comment = Comment.find_by_id(params[:id])
     if @comment.author == current_user && @comment.destroy
       flash[:info] = "Comment deleted."
-      redirect_or_render
+      redirect_back_or(root_path)
     else
       flash[:danger] = "Oops, something went wrong!"
-      redirect_or_render
+      redirect_back_or(root_path)
     end
   end
 
@@ -36,15 +36,11 @@ class CommentsController < ApplicationController
   end
 
 
-  def redirect_or_render(method = nil)
+  def render_parent
     if @comment.commentable_type == "Post"
       @user = @comment.commentable.author
-      if method == :render
-        @post = @user.posts.new if @user == current_user
-        render template: 'posts/index'
-      else # redirect
-        redirect_to user_timeline_path(@user)
-      end
+      @post = @user.posts.new if @user == current_user
+      render template: 'posts/index'
     end
   end
 

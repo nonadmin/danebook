@@ -12,24 +12,24 @@
       </time>
     </span>
     <p><%= comment.body %></p>
-    <ul class="list-inline">
-      <% if current_user == comment.author %>
-        <li class="pull-right">
-          <%= link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure?" }  %>
-        </li>
-      <% end %>
-      <li>
-        <% if signed_in_user? %>       
-          <% if like_id = comment.like_id_for(current_user) %>
-            <%= link_to "Unlike", like_path(like_id), method: :delete  %>
-          <% else %>
-            <%= link_to "Like", comment_likes_path(comment), method: :post %>
+      <ul class="list-inline">
+        <% if signed_in_user? %>
+          <% if current_user == comment.author %>
+            <li class="pull-right">
+              <%= link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure?" }  %>
+            </li>
           <% end %>
+          <li>      
+            <% if like_id = comment.like_id_for(current_user) %>
+              <%= link_to "Unlike", like_path(like_id), method: :delete  %>
+            <% else %>
+              <%= link_to "Like", comment_likes_path(comment), method: :post %>
+            <% end %>
+          </li>
         <% end %>
-      </li>
-      <li>
-        <%= liker_names(comment, current_user) %>
-      </li>
+        <li>
+          <%= liker_names(comment, current_user) %>
+        </li>
       </ul>
   </div>
 </div>

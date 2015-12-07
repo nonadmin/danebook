@@ -20,23 +20,24 @@
     </p>
   </div>
   <div class="panel-footer clearfix">
-    <ul class="list-inline">
-      <% if current_user == post.author %>
-        <li class="pull-right">
-          <%= link_to "Delete", post_path(post), method: :delete, data: { confirm: "Are you sure?" }  %>
-        </li>
-      <% end %>
-      <li>
-      <% if signed_in_user? %>       
-        <% if like_id = post.like_id_for(current_user) %>
-          <%= link_to "Unlike", like_path(like_id), method: :delete  %>
-        <% else %>
-          <%= link_to "Like", post_likes_path(post), method: :post %>
+  
+    <% if signed_in_user? %> 
+      <ul class="list-inline">
+        <% if current_user == post.author %>
+          <li class="pull-right">
+            <%= link_to "Delete", post_path(post), method: :delete, data: { confirm: "Are you sure?" }  %>
+          </li>
         <% end %>
-      <% end %>
-      </li>
-      <li><a href="#">Comment</a></li>
-    </ul>
+        <li>      
+          <% if like_id = post.like_id_for(current_user) %>
+            <%= link_to "Unlike", like_path(like_id), method: :delete  %>
+          <% else %>
+            <%= link_to "Like", post_likes_path(post), method: :post %>
+          <% end %>
+        </li>
+      </ul>
+    <% end %>
+
     <p><%= liker_names(post, current_user) %></p>
 
     <% if post.comments.any? %>

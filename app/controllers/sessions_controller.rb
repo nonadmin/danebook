@@ -7,10 +7,10 @@ class SessionsController < ApplicationController
     if user && user.authenticate(session_params[:password])
       sign_in(user)
       flash[:success] = "Welcome back, #{user.profile.first_name.capitalize}"
-      redirect_to user_profile_path(user.id)
+      redirect_back_or(user_profile_path(user))
     else
       flash[:danger] = "We couldn't sign you in!"
-      redirect_to signup_path
+      redirect_back_or(signup_path)
     end
   end
 

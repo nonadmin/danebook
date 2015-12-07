@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create] do
     resource :profile, only: [:show, :edit, :update]
     resources :posts, only: [:create] 
-    root               'posts#index'
     get 'timeline'  => 'posts#index'
   end
+
 
   resources :posts, only: [:destroy], 
                     concerns: [:commentable, :likeable]

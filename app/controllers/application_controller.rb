@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
 
   def require_sign_in
     unless signed_in_user?
-      redirect_to signup_path
+      redirect_back_or(signup_path)
       flash[:warning] = "Please sign in first!"
     end
   end
@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
   def check_user
     unless params[:user_id] == current_user.id.to_s
-      redirect_to signup_path
+      redirect_back_or(signup_path)
       flash[:danger] = "Unauthorized"
     end
   end
