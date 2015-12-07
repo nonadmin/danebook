@@ -17,7 +17,6 @@ Rails.application.routes.draw do
     get 'timeline'  => 'posts#index'
   end
 
-
   resources :posts, only: [:destroy], 
                     concerns: [:commentable, :likeable]
   resources :comments, only: [:destroy], concerns: [:likeable]
@@ -26,7 +25,6 @@ Rails.application.routes.draw do
   resource :sessions, only: [:create, :destroy]
 
   get 'signup'      => 'users#new'
-
   root 'users#new'
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,9 +1,11 @@
 <div class="media comment">
+
   <div class="pull-left">
     <a href="#">
       <%= image_tag "user_silhouette_generic.gif", class: "media-object" %>
     </a>
   </div>
+
   <div class="media-body">
     <%= link_to comment.author.profile.full_name, user_timeline_path(comment.author) %>
     <span class="light-text">said on 
@@ -12,6 +14,7 @@
       </time>
     </span>
     <p><%= comment.body %></p>
+
       <ul class="list-inline">
         <% if signed_in_user? %>
           <% if current_user == comment.author %>
@@ -28,8 +31,12 @@
           </li>
         <% end %>
         <li>
-          <%= liker_names(comment, current_user) %>
+          <span class="light-text">
+            <%= liker_names(comment, current_user) %>
+          </span>
         </li>
       </ul>
+      
   </div>
+
 </div>

@@ -22,64 +22,38 @@ module ApplicationHelper
 
   end
 
-
+  # Generate the "You and such and such like this" line.
+  # Kind of complicated due to replacing current_user with "You"
+  # and handling different phrasing depending on number of likes
   def liker_names(liked_resource, current_user)
     likers = liked_resource.likers.to_a
-    if likers.include?(current_user)
-      likers.reject! { |liker| liker == current_user}
-      case likers.size
-      when 0
-        names = "You like this."
-      when 1 
-        names = "You and " +
-        link_to(likers[0].profile.full_name, user_timeline_path(likers[0])) +
-        " like this."
-      when 2
-        names = "You, " +
-        link_to(likers[0].profile.full_name, user_timeline_path(likers[0])) +
-        ", and " +
-        link_to(likers[1].profile.full_name, user_timeline_path(likers[1])) +
-        " like this."
-      else
-        names = "You, " +
-        link_to(likers[0].profile.full_name, user_timeline_path(likers[0])) +
-        ", and " +
-        link_to(likers[1].profile.full_name, user_timeline_path(likers[1])) +
-        " and " + pluralize((likers.size - 3), 'other') + " like this."       
-      end
-    else
-      case likers.size
-      when 0
-      when 1
-        names = link_to(likers[0].profile.full_name, user_timeline_path(likers[0])) +
-        " likes this."
-      when 2 
-        names = link_to(likers[0].profile.full_name, user_timeline_path(likers[0])) +
-        ", and " +
-        link_to(likers[1].profile.full_name, user_timeline_path(likers[1])) +
-        " like this."
-      else
-        names = link_to(likers[0].profile.full_name, user_timeline_path(likers[0])) +
-        ", and " +
-        link_to(likers[1].profile.full_name, user_timeline_path(likers[1])) +
-        " and " + pluralize((likers.size - 2), 'other') + " like this." 
-      end    
+
+    if likers.reject! { |liker| liker == current_user}
+      likers.unshift("You")
     end
+
+    case likers.size
+    when 0
+    when 1
+      names = like_profile_link(likers[0]) + " likes this."
+    when 2 
+      names = like_profile_link(likers[0]) + " and " +
+      like_profile_link(likers[1]) + " like this."
+    else
+      names = like_profile_link(likers[0]) + ", " +
+      like_profile_link(likers[1]) + ", and " + 
+      pluralize((likers.size - 2), 'other') + " like this." 
+    end    
 
     names.html_safe unless names.nil?
-    # Joe Bob liked this
-    # You and Joe Bob liked this
-    # Job Bob, John Bob, and 1 other person liked this
-    # You, Joe Bob, and 3 other people liked this
+    # Joe Bob likes this
+    # You and Joe Bob like this
+    # Job Bob, John Bob, and 1 other like this
+    # You, Joe Bob, and 3 others like this
   end
 
-
-  def liker_self_or_user_link(liker, current_user)
-    if liker == current_user
-      "You"
-    else
-      link_to(liker.profile.full_name, user_timeline_path(liker))
-    end
+  def like_profile_link(user)
+    user == "You" ? "You" : link_to(user.profile.full_name, user_timeline_path(user))
   end
 
 

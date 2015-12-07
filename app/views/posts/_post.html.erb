@@ -1,4 +1,5 @@
 <section class="panel panel-default">
+
   <div class="panel-body">
     <div class="media">
       <div class="pull-left">
@@ -19,6 +20,7 @@
       <%= post.body %>
     </p>
   </div>
+
   <div class="panel-footer clearfix">
   
     <% if signed_in_user? %> 
@@ -38,7 +40,11 @@
       </ul>
     <% end %>
 
-    <p><%= liker_names(post, current_user) %></p>
+    <p>
+      <span class="light-text">
+        <%= liker_names(post, current_user) %>
+      </span>
+    </p>
 
     <% if post.comments.any? %>
       <hr>
@@ -46,6 +52,7 @@
     <% end %>
 
     <% if signed_in_user? %>
+    <!-- if/else here to handle comment with errors, @comment will be set -->
       <% if @comment && @comment.commentable_id == post.id %>
         <% new_comment = @comment %>
       <% else %>
@@ -65,4 +72,5 @@
     <% end %>
 
   </div>
+  
 </section>

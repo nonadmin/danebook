@@ -1,5 +1,6 @@
 class ProfilesController < UsersController
   
+  layout 'user'
   before_action :set_user
   before_action :check_user, except: [:show]
 
@@ -23,8 +24,5 @@ class ProfilesController < UsersController
       render :edit
     end
   end
-
-
-
 
 end
