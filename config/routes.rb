@@ -3,14 +3,25 @@ Rails.application.routes.draw do
   get '/friends'    => 'static_pages#friends'
   get '/photos'     => 'static_pages#photos'
 
+  concern :commentable do
+    resources :comments, only: [:create]
+  end
+
+  concern :likeable do
+    resources :likes, only: [:create]
+  end
+
   resources :users, only: [:new, :create] do
     resource :profile, only: [:show, :edit, :update]
-    resources :posts, only: [:create, :destroy] 
+    resources :posts, only: [:create] 
     root               'posts#index'
     get 'timeline'  => 'posts#index'
-    resources :likes, only: [:create, :destroy]
-    resources :comments, only: [:create, :destroy]
   end
+
+  resources :posts, only: [:destroy], 
+                    concerns: [:commentable, :likeable]
+  resources :comments, only: [:destroy], concerns: [:likeable]
+  resources :likes, only: [:destroy]
 
   resource :sessions, only: [:create, :destroy]
 

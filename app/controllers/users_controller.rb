@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   layout 'user', except: [:new, :create]
-  skip_before_action :require_sign_in, only: [:show, :new, :create]
+  skip_before_action :require_sign_in, only: [:index, :show, :new, :create]
 
   # Will go to timeline
   # def show

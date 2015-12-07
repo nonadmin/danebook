@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  default_scope { order('created_at ASC') }
+
   attr_accessor :parent_id
 
   belongs_to :author, class_name: "User"

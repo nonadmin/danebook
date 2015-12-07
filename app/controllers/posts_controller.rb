@@ -2,7 +2,6 @@ class PostsController < UsersController
 
   layout 'user'
   before_action :set_user
-  before_action :check_user, except: [:index]
 
 
   def index
@@ -12,7 +11,7 @@ class PostsController < UsersController
 
   def create
     @post = Post.new(post_params)
-    if @post.save
+    if @user == current_user && @post.save
       flash[:success] = "Posted to Timeline!"
       redirect_to user_timeline_path(@user)
     else
@@ -24,12 +23,12 @@ class PostsController < UsersController
 
   def destroy
     @post = Post.find_by_id(params[:id])
-    if @post.destroy
+    if @post.author == current_user && @post.destroy
       flash[:success] = "Post deleted."
-      redirect_to user_timeline_path(@user)
+      redirect_to user_timeline_path(current_user)
     else
       flash[:danger] = "Oops, something went wrong!"
-      redirect_to user_timeline_path(@user)
+      redirect_to user_timeline_path(current_user)
     end
   end
 
@@ -38,7 +37,7 @@ class PostsController < UsersController
 
 
   def post_params
-    params.require(:post).permit(:user_id, :body)
+    params.require(:post).permit(:body, :user_id)
   end
 
 

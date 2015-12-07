@@ -23,15 +23,15 @@
     <ul class="list-inline">
       <% if current_user == post.author %>
         <li class="pull-right">
-          <%= link_to "Delete", user_post_path(post.author, post), method: :delete, data: { confirm: "Are you sure?" }  %>
+          <%= link_to "Delete", post_path(post), method: :delete, data: { confirm: "Are you sure?" }  %>
         </li>
       <% end %>
       <li>
       <% if signed_in_user? %>       
         <% if like_id = post.like_id_for(current_user) %>
-          <%= link_to "Unlike", user_like_path(current_user, like_id, parent_id: post.author.id), method: :delete  %>
+          <%= link_to "Unlike", like_path(like_id), method: :delete  %>
         <% else %>
-          <%= link_to "Like", user_likes_path(current_user, likeable_type: "Post", likeable_id: post.id, parent_id: post.author.id), method: :post %>
+          <%= link_to "Like", post_likes_path(post), method: :post %>
         <% end %>
       <% end %>
       </li>
@@ -44,24 +44,23 @@
       <%= render partial: post.comments %>
     <% end %>
 
-    <% if @comment && @comment.commentable_id == post.id %>
-      <% new_comment = @comment %>
-    <% else %>
-      <% new_comment = post.comments.new %>
-    <% end %>
-    <%= form_for([current_user, new_comment]) do |comment_form| %>
-      <%= comment_form.hidden_field :commentable_type, value: "Post" %>
-      <%= comment_form.hidden_field :commentable_id, value: post.id %>
-      <%= comment_form.hidden_field :parent_id, value: post.author.id %>
-      <%= comment_form.label :body, class: "sr-only" %>
-      <%= comment_form.text_area :body, placeholder: "Write a comment...", rows: 4 %>
-      <%= render partial: 'shared/form_error', locals: {errors: new_comment.errors.full_messages_for(:body)} %>
-      <ul class="list-inline">
-        <li class="pull-right">
-          <%= comment_form.submit "Comment", class: "btn btn-primary" %>
-        </li>
-        <li><a href="#">Cancel</a></li>
-      </ul>
+    <% if signed_in_user? %>
+      <% if @comment && @comment.commentable_id == post.id %>
+        <% new_comment = @comment %>
+      <% else %>
+        <% new_comment = post.comments.new %>
+      <% end %>
+      <%= form_for([post, new_comment]) do |comment_form| %>
+        <%= comment_form.label :body, class: "sr-only" %>
+        <%= comment_form.text_area :body, placeholder: "Write a comment...", rows: 4 %>
+        <%= render partial: 'shared/form_error', locals: {errors: new_comment.errors.full_messages_for(:body)} %>
+        <ul class="list-inline">
+          <li class="pull-right">
+            <%= comment_form.submit "Comment", class: "btn btn-primary" %>
+          </li>
+          <li><a href="#">Cancel</a></li>
+        </ul>
+      <% end %>
     <% end %>
 
   </div>
