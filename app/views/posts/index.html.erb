@@ -35,9 +35,8 @@
 
       <!-- Timeline News Feed -->      
       <!-- Another post, with comments -->
-      <% posts = @user.posts.select(&:persisted?) %>
-      <% if posts.any? %>
-        <%= render partial: posts %>
+      <% if @posts = @user.posts.select(&:persisted?) %>
+        <%= render partial: @posts %>
       <% else %>
         <section class="panel panel-default">
           <div class="panel-body text-center">

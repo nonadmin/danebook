@@ -5,6 +5,11 @@ class Post < ActiveRecord::Base
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :likers, through: :likes, source: :creator
 
+  has_many :comments, as: :commentable, dependent: :destroy
+  accepts_nested_attributes_for :comments
+  validates_associated :comments, allow_destroy: true,
+    reject_if: proc { |attributes| attributes['body'].blank? }
+
   validates :user_id, presence: true
   validates :body, presence: true, length: { in: 12..2000 }
 

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     root               'posts#index'
     get 'timeline'  => 'posts#index'
     resources :likes, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
   end
 
   resource :sessions, only: [:create, :destroy]

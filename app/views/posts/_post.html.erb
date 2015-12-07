@@ -29,9 +29,9 @@
       <li>
       <% if signed_in_user? %>       
         <% if like_id = post.like_id_for(current_user) %>
-          <%= link_to "Unlike", user_like_path(current_user, like_id), method: :delete  %>
+          <%= link_to "Unlike", user_like_path(current_user, like_id, parent_id: post.author.id), method: :delete  %>
         <% else %>
-          <%= link_to "Like", user_likes_path(current_user, likeable_type: "Post", likeable_id: post.id), method: :post %>
+          <%= link_to "Like", user_likes_path(current_user, likeable_type: "Post", likeable_id: post.id, parent_id: post.author.id), method: :post %>
         <% end %>
       <% end %>
       </li>
@@ -39,14 +39,30 @@
     </ul>
     <p><%= liker_names(post, current_user) %></p>
 
-    
-    <form action="#"><p>
-      <textarea name="comment-textarea" id="comment-textarea" rows="4" class="form-control" placeholder="Write a comment..."></textarea></p>
+    <% if post.comments.any? %>
+      <hr>
+      <%= render partial: post.comments %>
+    <% end %>
+
+    <% if @comment && @comment.commentable_id == post.id %>
+      <% new_comment = @comment %>
+    <% else %>
+      <% new_comment = post.comments.new %>
+    <% end %>
+    <%= form_for([current_user, new_comment]) do |comment_form| %>
+      <%= comment_form.hidden_field :commentable_type, value: "Post" %>
+      <%= comment_form.hidden_field :commentable_id, value: post.id %>
+      <%= comment_form.hidden_field :parent_id, value: post.author.id %>
+      <%= comment_form.label :body, class: "sr-only" %>
+      <%= comment_form.text_area :body, placeholder: "Write a comment...", rows: 4 %>
+      <%= render partial: 'shared/form_error', locals: {errors: new_comment.errors.full_messages_for(:body)} %>
       <ul class="list-inline">
-        <li class="pull-right"><input type="submit" class="btn btn-sm btn-primary" value="Comment"></li>
+        <li class="pull-right">
+          <%= comment_form.submit "Comment", class: "btn btn-primary" %>
+        </li>
         <li><a href="#">Cancel</a></li>
       </ul>
-    </form>
+    <% end %>
 
   </div>
 </section>

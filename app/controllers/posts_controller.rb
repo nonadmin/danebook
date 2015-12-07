@@ -6,7 +6,7 @@ class PostsController < UsersController
 
 
   def index
-    @post = @user.posts.new
+    @post = @user.posts.new if @user == current_user
   end
 
 
@@ -40,5 +40,6 @@ class PostsController < UsersController
   def post_params
     params.require(:post).permit(:user_id, :body)
   end
+
 
 end

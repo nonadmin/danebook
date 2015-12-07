@@ -1,0 +1,35 @@
+<div class="media comment">
+  <div class="pull-left">
+    <a href="#">
+      <%= image_tag "user_silhouette_generic.gif", class: "media-object" %>
+    </a>
+  </div>
+  <div class="media-body">
+    <%= link_to comment.author.profile.full_name, user_timeline_path(comment.author) %>
+    <span class="light-text">Said on 
+      <time datetime="<%= comment.created_at.strftime('%Y/%-m/%-d') %>">
+        <%= comment.created_at.strftime('%A %-m/%-d/%Y') %>
+      </time>
+    </span>
+    <p><%= comment.body %></p>
+    <ul class="list-inline">
+      <% if current_user == comment.author %>
+        <li class="pull-right">
+          <%= link_to "Delete", user_comment_path(comment.author, comment, parent_id: comment.commentable.author.id), method: :delete, data: { confirm: "Are you sure?" }  %>
+        </li>
+      <% end %>
+      <li>
+        <% if signed_in_user? %>       
+          <% if like_id = comment.like_id_for(current_user) %>
+            <%= link_to "Unlike", user_like_path(current_user, like_id, parent_id: comment.commentable.author.id), method: :delete  %>
+          <% else %>
+            <%= link_to "Like", user_likes_path(current_user, likeable_type: "Comment", likeable_id: comment.id, parent_id: comment.commentable.author.id), method: :post %>
+          <% end %>
+        <% end %>
+      </li>
+      <li>
+        <%= liker_names(comment, current_user) %>
+      </li>
+      </ul>
+  </div>
+</div>

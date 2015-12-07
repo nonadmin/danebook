@@ -6,8 +6,9 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :profile
   validates_associated :profile
 
-  has_many :posts
+  has_many :posts, dependent: :destroy
   has_many :likes, foreign_key: "creator_id", dependent: :destroy
+  has_many :comments, foreign_key: "author_id"
 
   validates :email, presence: true, 
                     uniqueness: true
