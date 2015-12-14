@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.2.1'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 # PostgreSQL
@@ -43,6 +42,9 @@ gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
 
 group :development, :test do
+  # Testing
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'rspec-rails'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'hirb'
@@ -57,6 +59,16 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
     
+end
+
+group :development do
+  gem 'guard-rspec'
+end
+
+group :test do
+  gem 'shoulda-matchers', '~> 3.0'
+  gem 'capybara'
+  gem 'launchy'
 end
 
 group :production do

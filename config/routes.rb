@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create] do
     resource :profile, only: [:show, :edit, :update]
-    resources :posts, only: [:create] 
+    resources :posts, only: [:create] # not needed, always current_user
     get 'timeline'  => 'posts#index'
   end
 

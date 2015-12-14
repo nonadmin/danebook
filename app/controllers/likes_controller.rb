@@ -17,6 +17,7 @@ class LikesController < ApplicationController
   def destroy
     @like = Like.find_by_id(params[:id])
     @parent = @like.likeable
+    # check user!
     if @like.destroy
       flash[:info] = "You unliked the #{@like.likeable_type}!"
     else
