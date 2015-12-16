@@ -11,4 +11,13 @@ describe Comment do
       expect(comment).to be_valid
     end
   end
+
+
+  describe 'default scope' do 
+    it 'orders by ascending creation date' do
+      comment_one = create(:comment)
+      comment_two = create(:comment)
+      expect(Comment.all).to eq([comment_one, comment_two])
+    end
+  end
 end

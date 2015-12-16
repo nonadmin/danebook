@@ -25,4 +25,10 @@ FactoryGirl.define do
     body { "a" * 13 }
   end
 
+
+  factory :like do
+    association :creator, factory: :user
+    association :likeable, factory: :post
+  end
+
 end 
