@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  include Likeable
+
   default_scope { order('created_at ASC') }
 
   attr_accessor :parent_id
@@ -6,17 +8,7 @@ class Comment < ActiveRecord::Base
   belongs_to :author, class_name: "User"
   belongs_to :commentable, polymorphic: true
 
-  has_many :likes, as: :likeable, dependent: :destroy
-  has_many :likers, through: :likes, source: :creator
-
-  validates :author_id, :commentable_type, :commentable_id, presence: true
+  validates :author, :commentable_type, :commentable_id, presence: true
   validates :body, length: { in: 12..2000 } 
-
-
-  def like_id_for(user)
-    if likers.ids.include?(user.id)
-      likes.where("creator_id = ?", user.id).first.id
-    end
-  end
-
+  
 end
