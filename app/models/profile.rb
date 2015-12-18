@@ -1,7 +1,7 @@
 class Profile < ActiveRecord::Base
   belongs_to :user
 
-  validates :first_name, :last_name, :birthday, presence: true 
+  validates :user, :first_name, :last_name, :birthday, presence: true 
   validate :age_allowed
 
 

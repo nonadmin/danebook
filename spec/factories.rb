@@ -1,12 +1,18 @@
 FactoryGirl.define do
-
+  
   factory :user, aliases: [:author] do
     sequence(:email) { |n| "foo#{n}@example.com" }
     password { "fooBAR01" }
+
+    after(:create) do |user|
+      create(:profile, user: user)
+      user.reload
+    end
   end
-  
-  
+
+
   factory :profile do
+    user
     sequence(:first_name) { |n| "foo#{n}"}
     last_name { "bar" }
     birthday { 30.years.ago }

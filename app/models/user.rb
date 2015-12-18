@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_secure_password
   before_create :generate_token
   
-  has_one :profile, dependent: :destroy
+  has_one :profile, dependent: :destroy, inverse_of: :user
   accepts_nested_attributes_for :profile
   validates_associated :profile
 
