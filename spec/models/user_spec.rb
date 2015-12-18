@@ -4,7 +4,7 @@ describe User do
   let(:user) { build(:user) }
 
   describe 'attributes' do
-    it 'is valid with an email address and password' do
+    it 'is valid with an email address, password, and valid profile' do
       expect(user).to be_valid
     end
 
@@ -18,6 +18,12 @@ describe User do
     it 'is invalid with a duplicate email address' do
       expect(user).to validate_uniqueness_of(:email)
     end
+
+
+    it 'is invalid without a profile' do
+      user.profile = nil
+      expect(user).not_to be_valid
+    end    
 
 
     it 'impliments has_secure_password' do

@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_secure_password
   before_create :generate_token
   
-  has_one :profile, dependent: :destroy, inverse_of: :user
+  has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile
   validates_associated :profile
 
@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :likes, foreign_key: "creator_id", dependent: :destroy
   has_many :comments, foreign_key: "author_id"
 
+  validates :profile, presence: true
   validates :email, presence: true, 
                     uniqueness: true
   validates :password, length: { in: 8..64 },
