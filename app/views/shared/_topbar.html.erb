@@ -3,7 +3,9 @@
   <div class="container">
 
     <div class="navbar-header">
-      <a href="#" class="navbar-brand"><%= image_tag "danish_flag.gif", alt: "Danish Flag Logo", class: "img-circle" %>Danebook</a>
+      <%= link_to root_path, class: "navbar-brand" do  %>
+        <%= image_tag "danish_flag.gif", alt: "Danish Flag Logo", class: "img-circle" %>Danebook
+      <% end %>
     </div>
 
     <% unless signed_in_user? %>
@@ -26,14 +28,10 @@
 
     <% else %>
 
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search for Users">
-        </div>
-      </form>
+
 
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to current_user.profile.first_name.capitalize, user_profile_path(current_user.id) %></li>
+        <li><%= link_to current_user.profile.first_name.capitalize, user_profile_path(current_user) %></li>
       </ul>
 
     <% end %>

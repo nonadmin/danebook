@@ -19,6 +19,7 @@ describe ProfilesController do
 
     it "renders the edit profile form" do
       get :edit, user_id: user.id
+      
       expect(response).to render_template :edit
     end
 

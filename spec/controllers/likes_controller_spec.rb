@@ -14,7 +14,9 @@ describe LikesController do
     describe 'POST #create' do
       it "Current user creates a like on the post" do
         expect { 
-          post :create, post_id: apost.id       
+
+          post :create, post_id: apost.id
+
         }.to change(Like, :count).by(1)
 
         expect(assigns(:like).creator).to eq(user)
@@ -23,7 +25,9 @@ describe LikesController do
 
       it "Does not create a like if the parent id is invalid" do
         expect{
+
           post :create, post_id: "10101011234"
+
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -35,7 +39,9 @@ describe LikesController do
         testlike.save!
 
         expect{ 
+
           delete :destroy, id: testlike.id 
+
         }.to change(Like, :count).by(-1)
       end
 
@@ -45,7 +51,9 @@ describe LikesController do
         testlike.save!
 
         expect{ 
+
           delete :destroy, id: testlike.id 
+          
         }.not_to change(Like, :count)
       end
     end

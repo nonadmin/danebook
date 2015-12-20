@@ -4,6 +4,16 @@ FactoryGirl.define do
     sequence(:email) { |n| "foo#{n}@example.com" }
     password { "fooBAR01" }
     profile
+
+    factory :user_with_posts do
+      transient do
+        posts_count 5
+      end
+
+      after(:create) do |user, eval|
+        create_list(:post, eval.posts.count, author: user)
+      end
+    end
   end
 
 

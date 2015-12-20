@@ -1,5 +1,17 @@
 module ApplicationHelper
 
+  def signed_in_user?
+    !!current_user
+  end
+  # helper_method :signed_in_user?
+
+
+  def current_user
+    @current_user ||= User.find_by_auth_token(cookies[:auth_token])
+  end
+  # helper_method :current_user 
+   
+
   def nav_link(link_text, link_path, options = {})
 
     # Determine if link is to active page (sets gray background)
@@ -52,9 +64,8 @@ module ApplicationHelper
     # You, Joe Bob, and 3 others like this
   end
 
+
   def like_profile_link(user)
     user == "You" ? "You" : link_to(user.profile.full_name, user_timeline_path(user))
   end
-
-
 end
