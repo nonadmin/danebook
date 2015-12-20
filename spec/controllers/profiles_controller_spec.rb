@@ -22,11 +22,6 @@ describe ProfilesController do
       expect(response).to render_template :edit
     end
 
-
-    it "redirects edit of another user's profile" do
-      get :edit, user_id: another_user.id
-      expect(response).to redirect_to(root_path)
-    end
   end
 
 
@@ -42,15 +37,6 @@ describe ProfilesController do
       user.reload                       
       expect(user.profile.college).to eq("New College")
     end
-
-
-    it "Redirects update of another user's profile" do
-      expect { 
-        patch :update, user_id: another_user.id, 
-                       profile: attributes_for(:profile, about: "invalid") 
-      }.not_to change(another_user, :profile)
-      
-      expect(response).to redirect_to(root_path)                         
-    end    
+ 
   end
 end

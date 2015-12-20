@@ -12,11 +12,12 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:new, :create] do
-    resource :profile, only: [:show, :edit, :update]
+    resource :profile, only: [:show]
     resources :posts, only: [:index]
     get 'timeline'  => 'posts#index'
   end
 
+  resource :profile, only: [:edit, :update]
   resources :posts, only: [:create, :destroy], 
                     concerns: [:commentable, :likeable]
   resources :comments, only: [:destroy], concerns: [:likeable]

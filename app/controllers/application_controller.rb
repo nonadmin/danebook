@@ -39,13 +39,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
-  def check_user
-    unless params[:user_id] == current_user.id.to_s
-      redirect_to root_path
-      flash[:danger] = "Unauthorized"
-    end
-  end
+  # all actions scoped to current_user, no need to check params
+  # against it (no user_id in params anymore)
+  # def check_user
+  #   unless params[:user_id] == current_user.id.to_s
+  #     redirect_to root_path
+  #     flash[:danger] = "Unauthorized"
+  #   end
+  # end
 
 
   def set_user

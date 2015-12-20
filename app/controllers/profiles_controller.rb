@@ -1,6 +1,5 @@
 class ProfilesController < ApplicationController
   
-  before_action :check_user, except: [:show]
   skip_before_action :require_sign_in, only: [:show]
 
 
@@ -9,13 +8,17 @@ class ProfilesController < ApplicationController
 
 
   def edit
+    @user = current_user
+    @profile = current_user.profile
   end
 
 
   def update
-    if @user.profile.update(profile_params)
+    @user = current_user
+    @profile = current_user.profile
+    if @profile.update(profile_params)
       flash[:success] = "Profile Updated!"
-      redirect_to user_profile_path(@user.id)
+      redirect_to user_profile_path(current_user.id)
     else
       flash[:danger] = "Oops, something went wrong!"
       render :edit
@@ -34,5 +37,6 @@ class ProfilesController < ApplicationController
                                      :current_location,
                                      :phone )
   end
+
 
 end

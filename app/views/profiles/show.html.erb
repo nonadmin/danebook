@@ -5,7 +5,7 @@
     <header class="panel-heading clearfix">
       <% if current_user == @user %>        
         <div class="pull-right">
-          <%= link_to "Edit your Profile", edit_user_profile_path(@user.id), class: "btn btn-primary btn-xs" %>
+          <%= link_to "Edit your Profile", edit_profile_path, class: "btn btn-primary btn-xs" %>
         </div>
       <% end %>
       <h2 class="panel-title">About</h2>
