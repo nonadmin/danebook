@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :require_sign_in
+  before_action :store_location
+  before_action :set_user
 
 
   def sign_in(user)
@@ -32,7 +34,7 @@ class ApplicationController < ActionController::Base
 
   def require_sign_in
     unless signed_in_user?
-      redirect_back_or(signup_path)
+      redirect_back_or(root_path)
       flash[:warning] = "Please sign in first!"
     end
   end
@@ -40,9 +42,14 @@ class ApplicationController < ActionController::Base
 
   def check_user
     unless params[:user_id] == current_user.id.to_s
-      redirect_back_or(signup_path)
+      redirect_to root_path
       flash[:danger] = "Unauthorized"
     end
+  end
+
+
+  def set_user
+    @user = User.find_by_id(params[:user_id])
   end
 
 

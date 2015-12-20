@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
 
-  layout 'user'
+  skip_before_action :check_user
 
   def create
     @parent = find_parent
@@ -18,8 +18,8 @@ class CommentsController < ApplicationController
 
   def destroy
     # current_user.comments(find) scope to current_user
-    @comment = Comment.find_by_id(params[:id])
-    if @comment.author == current_user && @comment.destroy
+    @comment = current_user.comments.find_by_id(params[:id])
+    if @comment && @comment.destroy
       flash[:info] = "Comment deleted."
       redirect_back_or(root_path)
     else

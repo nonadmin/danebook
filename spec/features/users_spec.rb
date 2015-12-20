@@ -12,6 +12,7 @@ feature 'User accounts' do
     select("1", from: "user[profile_attributes][birthday(3i)]")
     select("1982", from: "user[profile_attributes][birthday(1i)]")
     choose("user_profile_attributes_gender_female")
+    
     expect{ click_button "Sign Up!" }.to change(User, :count).by(1)
     expect(page).to have_content("Welcome to Danebook, Foo")
     expect(page).to have_content("Words to Live By")

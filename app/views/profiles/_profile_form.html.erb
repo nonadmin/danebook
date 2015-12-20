@@ -1,7 +1,6 @@
 <!-- Form wrapping panel body and footer (to include 
     Save Changes button) -->
-<%= form_for(user, url: user_profile_path(user)) do |user_form| %>
-  <%= user_form.fields_for :profile do |profile_form| %>
+<%= form_for(profile, url: user_profile_path(profile.user)) do |profile_form| %>
 
     <div class="panel-body">
       <div class="row">
@@ -19,7 +18,7 @@
                 <%= profile_form.label :birthday, class: "col-xs-4" %>
                 <div class="col-xs-8">
                   <p class="form-control-static">
-                    <%= user.profile.birthday.strftime("%B #{user.profile.birthday.day.ordinalize}, %Y") %>
+                    <%= profile.birthday.strftime("%B #{profile.birthday.day.ordinalize}, %Y") %>
                   </p>
                 </div>
               </div>
@@ -49,16 +48,16 @@
                 <div class="col-xs-12">
                   <h4>Contact Information</h4>            
                 </div>
-              </div>            
+              </div>
 
               <div class="form-group">
-                <%= user_form.label :email, class: "col-xs-4" %>
+                <%= label_tag "Email", nil, class: "col-xs-4" %>
                 <div class="col-xs-8">
-                  <%= user_form.email_field :email %>
-                  <%= render partial: 'shared/form_error', 
-                 locals: {errors: user.errors.full_messages_for(:email)} %>
+                  <p class="form-control-static">
+                    <%= profile.user.email %>
+                  </p>
                 </div>
-              </div>  
+              </div>                          
 
               <div class="form-group">
                 <%= profile_form.label :phone, "Telephone", class: "col-xs-4" %>
@@ -92,8 +91,7 @@
     </div>
 
     <div class="panel-footer panel-footer-left">
-      <%= user_form.submit "Save Changes", class: "btn btn-primary btn-large" %>
+      <%= profile_form.submit "Save Changes", class: "btn btn-primary btn-large" %>
     </div>
 
-  <% end %>
 <% end %>

@@ -1,6 +1,6 @@
 class LikesController < ApplicationController
 
-  layout 'user'
+  skip_before_action :check_user
 
   def create
     @parent = find_parent
@@ -15,10 +15,8 @@ class LikesController < ApplicationController
 
 
   def destroy
-    @like = Like.find_by_id(params[:id])
-    @parent = @like.likeable
-    # check user!
-    if @like.destroy
+    @like = current_user.likes.find_by_id(params[:id])
+    if @like && @like.destroy
       flash[:info] = "You unliked the #{@like.likeable_type}!"
     else
       flash[:danger] = "Oops, something went wrong!"

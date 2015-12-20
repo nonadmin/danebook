@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
 
-  skip_before_action :require_sign_in, only: [:index, :show, :new, :create]
+  layout 'signup'
+  skip_before_action :require_sign_in
+  skip_before_action :store_location
+  skip_before_action :set_user
 
   def new
     @user = User.new
@@ -23,11 +26,6 @@ class UsersController < ApplicationController
   private
 
 
-  def set_user
-    @user = User.find_by_id(params[:user_id])
-  end
-
-
   def user_params
     params.require(:user).permit( :id,
                                   :email,
@@ -38,13 +36,7 @@ class UsersController < ApplicationController
                                   :first_name,
                                   :last_name,
                                   :birthday,
-                                  :gender,
-                                  :about,
-                                  :quote,
-                                  :college,
-                                  :hometown,
-                                  :current_location,
-                                  :phone ] )
+                                  :gender ] )
   end
 
 end

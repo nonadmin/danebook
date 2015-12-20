@@ -9,7 +9,7 @@ describe SessionsController do
       post :create, email: user.email, password: user.password
       expect(flash[:success]).to be_present
       expect(response).to redirect_to user_profile_path(user)
-      
+
       # have to reload user, sign-in regenerates auth token
       # expect(response.cookies["auth_token"]).to eq(user.auth_token)
     end
@@ -21,7 +21,7 @@ describe SessionsController do
       expect(flash[:danger]).to be_present
       expect(response).to redirect_to signup_path
 
-      #expect(response.cookies["auth_token"]).to be_nil
+      # expect(response.cookies["auth_token"]).to be_nil
     end
   end
 end

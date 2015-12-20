@@ -28,9 +28,11 @@ feature 'Liking posts, comments, etc' do
   scenario "A User can like comments" do
     create(:comment, author: user, commentable: post)
     visit user_timeline_path(another_user)
+
     expect do
       page.find(".comment").click_link('Like')
-    end.to change(Like, :count).by(1)    
+    end.to change(Like, :count).by(1)   
+     
     expect(page).to have_content("You liked the Comment!")
   end
 
@@ -39,9 +41,11 @@ feature 'Liking posts, comments, etc' do
     create(:comment, author: user, commentable: post)
     visit user_timeline_path(another_user)
     page.find(".comment").click_link('Like')
+
     expect do
       page.find(".comment").click_link('Unlike')
-    end.to change(Like, :count).by(-1)    
+    end.to change(Like, :count).by(-1)   
+
     expect(page).to have_content("You unliked the Comment!")
   end  
 
