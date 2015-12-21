@@ -41,6 +41,12 @@ gem 'bootstrap-sass'
 gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
 
+
+# File Uploads
+gem 'paperclip'
+gem 'aws-sdk'
+gem 'figaro'
+
 group :development, :test do
   # Testing
   gem 'factory_girl_rails', '~> 4.0'
