@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryGirl.define do  
   
   factory :user, aliases: [:author] do
     sequence(:email) { |n| "foo#{n}@example.com" }
@@ -40,6 +40,12 @@ FactoryGirl.define do
   factory :like do
     association :creator, factory: :user
     association :likeable, factory: :post
+  end
+
+
+  factory :friending do
+    association :friend_initiator, factory: :user
+    association :friend_receiver, factory: :user
   end
 
 end 

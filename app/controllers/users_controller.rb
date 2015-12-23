@@ -1,14 +1,19 @@
 class UsersController < ApplicationController
 
   layout 'signup'
+
   skip_before_action :require_sign_in
   skip_before_action :store_location
   skip_before_action :set_user
+
+  before_action :redirect_signed_in_user
+
 
   def new
     @user = User.new
     @user.build_profile
   end
+
 
   def create
     @user = User.new(user_params)
@@ -37,6 +42,13 @@ class UsersController < ApplicationController
                                   :last_name,
                                   :birthday,
                                   :gender ] )
+  end
+
+
+  def redirect_signed_in_user
+    if signed_in_user?
+      redirect_to user_timeline_path(current_user)
+    end
   end
 
 end

@@ -14,6 +14,7 @@ describe "posts/index.html.erb" do
   
 
   context "signed in" do
+    # actually context here, not describe, remove on
     describe "on the current user's timeline" do
       before do
         @current_user = create(:user_with_posts)
@@ -41,7 +42,7 @@ describe "posts/index.html.erb" do
         render
 
         expect(rendered).not_to have_selector(
-          "text[name='post[body]']"
+          "textarea[name='post[body]']"
         )
       end   
     end
