@@ -10,6 +10,12 @@ class User < ActiveRecord::Base
   has_many :likes, foreign_key: "creator_id", dependent: :destroy
   has_many :comments, foreign_key: "author_id"
 
+  has_many :initiated_friendings, foreign_key: :friender_id,
+                                  class_name: "Friending"
+  has_many :friends, through: :initiated_friendings,
+                     source: :friend_receiver,
+                     dependent: :destroy
+
   validates :profile, presence: true
   validates :email, presence: true, 
                     uniqueness: true

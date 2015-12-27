@@ -41,6 +41,11 @@ describe User do
     it 'has many posts' do
       expect(user).to have_many(:posts).dependent(:destroy)
     end
+
+
+    it 'has many friends' do
+      expect(user).to have_many(:friends).dependent(:destroy)
+    end
   end
 
 
