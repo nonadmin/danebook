@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create] do
     resource :profile, only: [:show]
     resources :posts, only: [:index]
+    resources :friends, only: [:index]
     get 'timeline'  => 'posts#index'
   end
 
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
                     concerns: [:commentable, :likeable]
   resources :comments, only: [:destroy], concerns: [:likeable]
   resources :likes, only: [:destroy]
+  resources :friends, only: [:create, :destroy]
 
   resource :sessions, only: [:create, :destroy]
 

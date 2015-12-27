@@ -7,11 +7,16 @@ feature "Friending a User" do
   scenario "User can friend another user from their timeline" do
     sign_in(user)
     visit user_timeline_path(another_user)
-    expect{ click_button "Add Friend" }.to change(Friending, :count).by(1)
-    expect(page).to have_button("Remove Friend")
-    expect(page).to have_content("Friend Added!")
+    expect{ click_link "Add Friend" }.to change(Friending, :count).by(2)
+    expect(page).to have_content("are now friends!")
   end
 
 
-  scenario "User can remove friend from their timeline"
+  scenario "User can remove friend from their timeline" do
+    sign_in(user)
+    visit user_timeline_path(another_user)
+    click_link "Add Friend"
+    expect{ click_link "Remove Friend" }.to change(Friending, :count).by(-2)
+    expect(page).to have_content("no longer friends with")
+  end
 end

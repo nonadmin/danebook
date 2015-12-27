@@ -13,7 +13,11 @@
     <h1>
       <%= user.profile.full_name %>
       <% if signed_in_user? && current_user != user %>
-        <%= link_to "Add Friend", "#", class: "btn btn-primary"  %>
+        <% if current_user.friends.include?(user) %>
+          <%= link_to "Remove Friend", friend_path(id: user), method: :delete, class: "btn btn-primary"  %>
+        <% else %>
+          <%= link_to "Add Friend", friends_path(id: user), method: :post, class: "btn btn-primary"  %>
+        <% end %>
       <% end %>
     </h1>
   </div>

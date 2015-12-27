@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
 
-  skip_before_action :check_user
   skip_before_action :require_sign_in, only: [:index]
 
   def index
