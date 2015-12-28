@@ -23,12 +23,14 @@ describe Friending do
 
     it "is invalid with a non-existant friend_initiator" do
       friending.friender_id = 1234
+
       expect(friending).not_to be_valid
     end
 
 
     it 'is invalid with a non-existant friend_receiver' do
       friending.friend_id = 1234
+
       expect(friending).not_to be_valid      
     end
 
@@ -37,6 +39,7 @@ describe Friending do
       friending.save
       invalid = build(:friending, friend_initiator: friending.friend_initiator,
                                   friend_receiver: friending.friend_receiver)
+      
       expect(invalid).not_to be_valid    
     end
   end
@@ -46,6 +49,7 @@ describe Friending do
     context "two way friendship is automatically created" do
       it "triggers #complete_friending on after create" do
         expect(friending).to receive(:complete_friending)
+
         friending.save
       end
 
@@ -64,6 +68,7 @@ describe Friending do
 
       it "triggers #destroy_opposite on after destroy" do
         expect(friending).to receive(:destroy_opposite)
+        
         friending.destroy
       end
 

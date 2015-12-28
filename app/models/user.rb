@@ -38,6 +38,9 @@ class User < ActiveRecord::Base
   end
 
 
+  # Constructs a gross looking but efficient WHERE query to search
+  # first_name and last_name of profiles for each word in the search
+  # string (assuming seperation by space)
   def self.search_by_name(search_string)
     unless search_string.blank?
       search_terms = search_string.split

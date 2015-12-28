@@ -25,7 +25,7 @@ class Friending < ActiveRecord::Base
   end
 
 
-  # Remove both sides of the friendship at once, unless used to avoid 
+  # Remove both sides of the friendship at once, "unless" used to avoid 
   # looping/nil class errors when the opposite is destroyed and this method
   # is called again.
   def destroy_opposite
