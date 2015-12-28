@@ -120,30 +120,10 @@
 
 
       <!-- Small friends box -->
-      <section class="panel panel-default">
-
-        <header class="panel-heading">
-          <h4 class="panel-title">Friends <span class="badge">542</span></h4>
-        </header>
-
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "user_silhouette_generic.gif" %></a></div>
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "user_silhouette_generic.gif" %></a></div>
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "user_silhouette_generic.gif" %></a></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "user_silhouette_generic.gif" %></a></div>
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "user_silhouette_generic.gif" %></a></div>
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "user_silhouette_generic.gif" %></a></div>
-          </div>
-        </div>
-
-        <div class="panel-footer panel-footer-left">
-          <%= link_to "See More Friends", friends_path  %>
-        </div>
-
-      </section>
+      <% if @user.friends.any? %>
+        <%= render partial: "friends/friends_widget", locals:
+                   { friends: @user.friends } %>
+      <% end %>
 
     </div><!-- End Left Timeline Column -->
 

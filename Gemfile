@@ -75,6 +75,8 @@ group :test do
   gem 'shoulda-matchers', '~> 3.0'
   gem 'capybara'
   gem 'launchy'
+  gem 'database_cleaner'
+
 end
 
 group :production do

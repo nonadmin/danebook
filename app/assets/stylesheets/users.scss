@@ -6,3 +6,29 @@ form .form-horizontal label {
   text-align: left;
   font-weight: normal;
 }
+
+.search-results-count {
+  color: #bbb;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+
+.search-results {
+  margin-top: 20px;
+  img {
+    width: 140px;
+  }
+  li {
+    vertical-align: middle;
+  }
+  ul {
+    margin-bottom: 0px;
+  }
+  .pull-right {
+    line-height: 140px;
+  }
+  p {
+    padding-top: 10px;
+  }
+}

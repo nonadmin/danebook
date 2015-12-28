@@ -49,4 +49,36 @@ describe User do
   end
 
 
+  describe ".search_by_name" do
+    before :all do
+      names = [ {first_name: "John", last_name: "Doe"}, 
+                {first_name: "John", last_name: "Smith"}, 
+                {first_name: "Jane", last_name: "Doe"}, 
+                {first_name: "Jane", last_name: "Smith"} ]
+      names.each { |n| create(:user, profile: build(:profile, n)) }
+    end
+
+    it "returns users with first or last name matching the search term" do
+      results = User.search_by_name("john smith")
+      expect(results.size).to eq(3)
+    end
+
+
+    it "returns results with partial matches" do
+      results = User.search_by_name("j")
+      expect(results.size).to eq(4)
+    end
+
+
+    it "returns nil if search string is empty" do
+      results = User.search_by_name(" ")
+      expect(results).to be_nil
+    end
+
+
+    it "returns nil if there are no results" do
+      results = User.search_by_name("Dixie")
+      expect(results).to be_nil
+    end
+  end
 end

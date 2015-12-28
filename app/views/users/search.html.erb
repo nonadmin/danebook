@@ -1,0 +1,36 @@
+<!-- Main content, Search -->
+<% if @results %>
+  <div class="row">
+    <div class="col-md-12 text-center search-results-count">
+      Showing <%= @results.size %> users whose first or last names
+      contain "<%= params[:search] %>"
+    </div>
+  </div>
+<% end %>
+
+<div class="row search-results">
+  <div class="col-md-8 col-md-offset-2">
+    <main class="panel panel-default">
+
+      <header class="panel-heading">
+        <h2 class="panel-title">Search Results</h2>
+      </header>
+
+      <div class="panel-body">
+        <div class="row">
+
+          <% if @results %>
+            <%= render partial: "search_result", collection: @results, as: :result %>
+          <% else %>
+            <div class="col-md-12 text-center">
+              <h4>No user's names contain "<%= params[:search] %>"</h4>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</div><!-- End Search -->      

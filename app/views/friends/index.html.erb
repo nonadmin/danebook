@@ -1,0 +1,25 @@
+<!-- Main content, Friends -->
+<div class="row">
+  <main class="panel panel-default friends-main">
+
+    <header class="panel-heading">
+      <h2 class="panel-title">Friends</h2>
+    </header>
+
+    <div class="panel-body">
+      <div class="row">
+
+        <% if @user.friends.any? %>
+          <%= render partial: "friend", collection: @user.friends, as: :friend %>
+        <% else %>
+          <div class="col-md-12 text-center">
+            <h4>No friends :(</h4>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+
+  </main>
+
+</div><!-- End Friends row -->      

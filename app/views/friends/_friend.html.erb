@@ -1,0 +1,22 @@
+<div class="col-md-6">
+  <div class="well well-sm friend-box">
+    <ul class="list-inline">
+      <li>
+        <a href="#"><%= image_tag "user_silhouette_generic.gif" %></a>
+      </li>
+      <li>
+        <ul class="list-unstyled friend-name">
+          <li>
+            <%= link_to friend.profile.full_name, user_timeline_path(friend) %>
+          </li>
+          <li><span class="light-text"><%= friend.friends.count %> Friends</span></li>
+        </ul>
+      </li>
+      <li class="pull-right">
+        <% if @user == current_user %>
+          <%= link_to "Unfriend me", friend_path(friend), method: :delete, class: "btn btn-default" %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>

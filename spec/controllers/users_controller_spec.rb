@@ -10,7 +10,6 @@ describe UsersController do
   end
 
   describe 'User Signup' do
-
     describe 'GET #new' do
       it 'renders the signup page with the new user form' do
         get :new
@@ -44,6 +43,27 @@ describe UsersController do
         expect(response).to render_template :new
       end
     end
-    
+  end
+
+
+  describe 'User Search' do
+    before do
+      user.save
+      request.cookies["auth_token"] = user.auth_token
+    end    
+
+    describe 'GET #search' do
+      it "renders the search results template" do
+        get :search
+        puts response.body
+        expect(response).to render_template(:search)
+      end
+
+
+      it "assigns the results variable" do
+        get :search, search: "foo"
+        expect(assigns(:results)).to match_array([user])
+      end
+    end
   end
 end

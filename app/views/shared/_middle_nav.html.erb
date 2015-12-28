@@ -9,10 +9,11 @@
           <% if current_user == user %>
             <%= nav_link "Edit Profile",  edit_profile_path, class: "pull-right" %>
           <% end %>
-          <%= nav_link "Timeline",      user_timeline_path(user) %>
-          <%= nav_link "About",         user_profile_path(user) %>
-          <%= nav_link "Photos",        "#", badge: 123 %>
-          <%= nav_link "Friends",       "#", badge: user.friends.count %>
+          <%= nav_link "Timeline", user_timeline_path(user) %>
+          <%= nav_link "About",    user_profile_path(user) %>
+          <%= nav_link "Photos",   "#", badge: 123 %>
+          <%= nav_link "Friends",  user_friends_path(user), 
+                                   badge: user.friends.count %>
         </ul>
       </div>
 

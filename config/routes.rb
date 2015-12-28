@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:index]
     resources :friends, only: [:index]
     get 'timeline'  => 'posts#index'
+    get 'search', on: :collection
   end
 
   resource :profile, only: [:edit, :update]

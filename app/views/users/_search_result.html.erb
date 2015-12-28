@@ -1,0 +1,39 @@
+<div class="col-md-12">
+  <div class="well well-sm search-result">
+    <ul class="list-inline">
+      <li>
+        <a href="#"><%= image_tag "user_silhouette_generic.gif" %></a>
+      </li>
+      <li>
+        <ul class="list-unstyled">
+          <li>
+            <%= link_to result.profile.full_name, user_timeline_path(result) %>
+          </li>
+          <li><span class="light-text"><%= result.friends.count %> Friends</span></li>
+          <li>
+            <p>
+              <% if !result.profile.current_location.blank? %>
+                Currently Lives in <%= result.profile.current_location %><br>
+              <% end %>
+              
+              <% if !result.profile.hometown.blank? %>
+                From <%= result.profile.hometown %><br>
+              <% end %>
+
+              Born on <%= result.profile.birthday.strftime("%B #{result.profile.birthday.day.ordinalize}, %Y") %>
+            </p>
+          </li>
+        </ul>
+      </li>
+      <li class="pull-right">
+        <% if result != current_user %>
+          <% if current_user.friends.include?(result) %>
+            <%= link_to "Unfriend Me? :(", friend_path(id: result), method: :delete, class: "btn btn-large btn-default"  %>
+          <% else %>
+            <%= link_to "Friend Me!", friends_path(id: result), method: :post, class: "btn btn-large btn-primary"  %>
+          <% end %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>

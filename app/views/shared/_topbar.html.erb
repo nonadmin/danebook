@@ -27,8 +27,14 @@
       <% end %>
 
     <% else %>
+      <%= form_tag search_users_path, class: "navbar-form navbar-left", role: 'search', method: :get, enforce_utf8: false do %>
+        <div class="form-group">
+          <%= label_tag "Search", nil, class: "sr-only" %>
+          <%= text_field_tag :search, nil, placeholder: "Search For Users" %>
+        </div>
 
-
+        <%= submit_tag "Search", name: nil, style: "display: none;" %>
+      <% end %>
 
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to current_user.profile.first_name.capitalize, user_profile_path(current_user) %></li>

@@ -1,7 +1,11 @@
-FactoryGirl.define do  
+FactoryGirl.define do
+
+  sequence :email do |n|
+    "foo#{n}@example.com"
+  end  
   
   factory :user, aliases: [:author] do
-    sequence(:email) { |n| "foo#{n}@example.com" }
+    email
     password { "fooBAR01" }
     profile
 
@@ -11,7 +15,18 @@ FactoryGirl.define do
       end
 
       after(:create) do |user, eval|
-        create_list(:post, eval.posts.count, author: user)
+        create_list(:post, eval.posts_count, author: user)
+      end
+    end
+
+
+    factory :user_with_friends do
+      transient do
+        friends_count 6
+      end
+
+      after(:create) do |user, eval|
+        create_list(:friending, eval.friends_count, friend_initiator: user)
       end
     end
   end

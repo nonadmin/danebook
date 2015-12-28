@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
 
-  layout 'signup'
+  layout 'topbar_only'
 
-  skip_before_action :require_sign_in
-  skip_before_action :store_location
+  skip_before_action :require_sign_in, except: [:search]
+  skip_before_action :store_location, except: [:search]
   skip_before_action :set_user
 
-  before_action :redirect_signed_in_user
+  before_action :redirect_signed_in_user, only: [:new, :create]
 
 
   def new
@@ -25,6 +25,11 @@ class UsersController < ApplicationController
       flash.now[:danger] = "Oops, something went wrong!"
       render :new
     end
+  end
+
+
+  def search
+    @results = User.search_by_name(params[:search])
   end
 
 

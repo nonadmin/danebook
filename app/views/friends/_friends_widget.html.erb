@@ -1,0 +1,21 @@
+<section class="panel panel-default" id="friends_widget">
+
+  <header class="panel-heading">
+    <h4 class="panel-title">Friends 
+      <span class="badge"><%= friends.count %></span>
+    </h4>
+  </header>
+
+  <div class="panel-body">
+    <div class="row">
+      <%= render partial: "friends/friends_widget_link", 
+                 collection: friends.sample(6), 
+                 as: :friend %>
+    </div>
+  </div>
+
+  <div class="panel-footer panel-footer-left">
+    <%= link_to "See More Friends", user_friends_path(@user) %>
+  </div>
+
+</section>

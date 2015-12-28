@@ -38,4 +38,19 @@ class User < ActiveRecord::Base
   end
 
 
+  def self.search_by_name(search_string)
+    unless search_string.blank?
+      search_terms = search_string.split
+      search_conditions = [(['first_name ILIKE ?'] * 
+                          search_terms.length).join(' OR ') + " OR " +
+                          (['last_name ILIKE ?'] * 
+                          search_terms.length).join(' OR ')] + 
+                          search_terms.map { |term| "%#{term}%" } +
+                          search_terms.map { |term| "%#{term}%" }
+
+      results = Profile.where(search_conditions)
+      find(results.pluck(:user_id)) if results.any?
+    end
+  end
+
 end
