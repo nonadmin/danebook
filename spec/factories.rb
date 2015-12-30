@@ -63,4 +63,10 @@ FactoryGirl.define do
     association :friend_receiver, factory: :user
   end
 
+
+  factory :photo do
+    author
+    image { File.new("#{Rails.root}/spec/support/test.png") }
+  end
+
 end 

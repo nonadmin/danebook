@@ -12,18 +12,6 @@ describe FriendsController do
         expect(response).to render_template(:index)
       end
     end
-
-
-    # describe "POST #create" do
-    #   it "re if there is no current user"
-    #   it "does not create a new friending"
-    # end
-
-
-    # describe "DELETE #destroy" do
-    #   it "raises an error if there is no current user"
-    #   it "does not remove the friending"
-    # end
   end
 
 
@@ -64,6 +52,7 @@ describe FriendsController do
 
       it "does not allow users to remove other user's friendships" do
         friending = create(:friending, friend_initiator: another_user)
+        
         expect { 
 
           delete :destroy, id: friending.friend_id 
