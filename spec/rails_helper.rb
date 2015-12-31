@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'factory_girl_rails'
 require 'capybara/rails'
+require 'paperclip/matchers'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -57,9 +58,14 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+
+  # Misc
   config.include FactoryGirl::Syntax::Methods
   config.include LoginMacros
+  config.include Paperclip::Shoulda::Matchers
 
+
+  # Database cleaner
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
@@ -89,6 +95,16 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+
+  # Cleanup Paperclip uploads
+  config.include ActionDispatch::TestProcess
+  
+  config.after(:all) do
+    if Rails.env.test?
+      test_uploads = Dir["#{Rails.root}/spec/support/test_uploads"]
+      FileUtils.rm_rf(test_uploads)
+    end
   end
 
 end

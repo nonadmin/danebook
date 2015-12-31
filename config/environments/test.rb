@@ -39,4 +39,10 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Paperclip Test Uploads
+  config.paperclip_defaults = {
+    path: ':rails_root/spec/support/test_uploads/:class/:id/:attachment/:filename.:extension',
+    url: ':rails_root/spec/support/test_uploads/:class/:id/:attachment/:filename.:extension'
+  }
 end

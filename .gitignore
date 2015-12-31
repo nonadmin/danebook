@@ -20,4 +20,4 @@
 /config/application.yml
 
 # Ignore test files created by paperclip
-/public/system/photos
+/spec/support/test_uploads/*
