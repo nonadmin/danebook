@@ -18,6 +18,10 @@
 
 # Ignore application configuration
 /config/application.yml
+.env
 
 # Ignore test files created by paperclip
 /spec/support/test_uploads/*
+
+# local production assets
+/public/assets
