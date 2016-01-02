@@ -3,7 +3,7 @@
   <% if cover_photo = user.profile.cover_photo %>
     .cover-photo { background-image: url(<%= cover_photo.image.url(:large) %>); }
   <% else %>
-    .cover-photo { background-image: url(<%= asset_path('cover_photo.jpeg') %>); }
+    .cover-photo { background-image: url(<%= asset_path('cover_photo.jpg') %>); }
   <% end %>
 </style>
 
