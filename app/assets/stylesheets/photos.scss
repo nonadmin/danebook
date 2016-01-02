@@ -2,8 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.photo-upload {
-  margin-top: 40px;
+.photo-row {
+  margin: 40px 0 40px 0;
+}
+
+.photo-container {
+  background-color: #000;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.photo-actions {
+  padding: 10px 0;
 }
 
 .btn-file {

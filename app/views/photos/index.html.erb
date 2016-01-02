@@ -1,0 +1,26 @@
+<!-- Main content, Photos grid -->
+<div class="row">
+  <main class="panel panel-default photos-main">
+
+    <header class="panel-heading clearfix">
+        <div class="pull-right">
+          <% if @user == current_user %>
+            <%= link_to "Add Photo!", new_photo_path, class: "btn btn-primary btn-sm"  %>
+          <% end %>
+        </div>
+      <h2 class="panel-title">Photos</h2>
+    </header>
+
+    <div class="panel-body">
+      <div class="row">
+        <% if @photos.any? %>
+          <%= render partial: "thumbnail", collection: @photos, as: :photo %>
+        <% else %>
+          <h4 class="text-center">No Photos :(</h4>
+        <% end %>
+      </div>
+    </div>
+
+  </main>
+
+</div><!-- End Photos row -->

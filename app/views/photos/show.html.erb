@@ -1,0 +1,65 @@
+<div class="row photo-row">
+  <div class="col-md-8">
+    <div class="photo-container">
+      <%= image_tag @photo.image.url(:large), class: "img-responsive center-block" %>
+    </div>
+    <% if current_user == @photo.author %>    
+      <div class="photo-actions text-right">
+        <div class="btn-group btn-group-xs" role="group" aria-label="...">
+          <%= link_to "Set as Profile", "#", class: "btn btn-default" %>
+          <%= link_to "Set as Cover", "#", class: "btn btn-default" %>
+          <%= link_to "Delete Photo", photo_path(@photo), 
+                                      class: "btn btn-danger",
+                                      method: :delete,
+                                      data: { confirm: "Are you sure?" } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <div class="media">
+          <div class="pull-left">
+            <a href="#">
+              <%= image_tag "jeff.jpg", class: "media-object", style: "width: 64px;" %>
+            </a>
+          </div>
+          <div class="media-body">
+            <%= @photo.author.profile.full_name %><br>
+            <span class="light-text">
+              <time datetime="<%= @photo.created_at.strftime('%Y/%-m/%-d') %>">
+                <%= @photo.created_at.strftime('%A %-m/%-d/%Y') %>
+              </time>
+            </span>
+          </div>
+        </div>
+
+        <p>
+          <ul class="list-inline">
+            <li>
+              <% if like_id = @photo.like_id_for(current_user) %>
+                <%= link_to "Unlike", like_path(like_id), method: :delete  %>
+              <% else %>
+                <%= link_to "Like", photo_likes_path(@photo), method: :post %>
+              <% end %>
+            </li>
+            <li><%= liker_names(@photo, current_user) %></li>
+          </ul>
+        </p>
+
+        <% if signed_in_user? %>
+          <%= render partial: "comments/comment_form", locals: { parent: @photo } %>
+        <% end %>
+      </div>
+
+      <div class="panel-footer">
+        <% if @photo.comments.select(&:persisted?).any? %>
+          <%= render partial: @photo.comments.select(&:persisted?) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

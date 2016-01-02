@@ -52,23 +52,7 @@
     <% end %>
 
     <% if signed_in_user? %>
-    <!-- if/else here to handle comment with errors, @comment will be set -->
-      <% if @comment && @comment.commentable_id == post.id %>
-        <% new_comment = @comment %>
-      <% else %>
-        <% new_comment = post.comments.new %>
-      <% end %>
-      <%= form_for([post, new_comment]) do |comment_form| %>
-        <%= comment_form.label :body, class: "sr-only" %>
-        <%= comment_form.text_area :body, placeholder: "Write a comment...", rows: 4 %>
-        <%= render partial: 'shared/form_error', locals: {errors: new_comment.errors.full_messages_for(:body)} %>
-        <ul class="list-inline">
-          <li class="pull-right">
-            <%= comment_form.submit "Comment", class: "btn btn-primary" %>
-          </li>
-          <li><a href="#">Cancel</a></li>
-        </ul>
-      <% end %>
+      <%= render partial: "comments/comment_form", locals: { parent: post } %>
     <% end %>
 
   </div>

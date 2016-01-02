@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  
-  get '/friends'    => 'static_pages#friends'
-  get '/photos'     => 'static_pages#photos'
 
   concern :commentable do
     resources :comments, only: [:create]
@@ -26,7 +23,8 @@ Rails.application.routes.draw do
   resources :comments, only: [:destroy], concerns: [:likeable]
   resources :likes, only: [:destroy]
   resources :friends, only: [:create, :destroy]
-  resources :photos, only: [:show, :new, :create, :destroy]
+  resources :photos, only: [:show, :new, :create, :destroy],
+                     concerns: [:commentable, :likeable]
 
   resource :sessions, only: [:create, :destroy]
 

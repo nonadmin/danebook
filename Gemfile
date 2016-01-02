@@ -44,7 +44,7 @@ gem 'will_paginate-bootstrap'
 
 # File Uploads
 gem 'paperclip'
-gem 'aws-sdk', '>= 2.0.0'
+gem 'aws-sdk', '< 2.0'
 gem 'figaro'
 
 group :development, :test do

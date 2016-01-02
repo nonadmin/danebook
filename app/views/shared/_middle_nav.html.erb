@@ -11,7 +11,7 @@
           <% end %>
           <%= nav_link "Timeline", user_timeline_path(user) %>
           <%= nav_link "About",    user_profile_path(user) %>
-          <%= nav_link "Photos",   "#", badge: 123 %>
+          <%= nav_link "Photos",   user_photos_path(user), badge: user.photos.count %>
           <%= nav_link "Friends",  user_friends_path(user), 
                                    badge: user.friends.count %>
         </ul>

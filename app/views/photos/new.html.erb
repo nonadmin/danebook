@@ -1,4 +1,4 @@
-<div class="row photo-upload">
+<div class="row photo-row">
   <div class="col-md-8 col-md-offset-2">
     <main class="panel panel-default">
 
@@ -12,8 +12,14 @@
             <%= form_for @photo do |photo_form| %>
 
               <div class="form-group">
-                <label for="temp">Testing</label>
-                <input type="text" name="temp" class="form-control" readonly>
+                <%= photo_form.label :url, "Enter the URL to a photo on the web" %>
+                <%= photo_form.text_field :url %>
+                <%= render partial: 'shared/form_error', 
+                       locals: {errors: @photo.errors.messages[:url]} %>
+              </div>
+
+              <div class="text-center">
+                <h4>OR</h4>
               </div>
 
               <div class="form-group">
@@ -21,7 +27,8 @@
                 <div class="input-group">
                   <span class="input-group-btn">
                       <span class="btn btn-default btn-file">
-                          Browse&hellip; <%= photo_form.file_field :image %>
+                          Browse&hellip; 
+                          <%= photo_form.file_field :image, value: nil %>
                       </span>
                   </span>
                   <input type="text" class="form-control" readonly>

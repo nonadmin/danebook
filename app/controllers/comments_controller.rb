@@ -42,6 +42,9 @@ class CommentsController < ApplicationController
       @user = @comment.commentable.author
       @post = @user.posts.new if @user == current_user
       render template: 'posts/index'
+    elsif  @comment.commentable_type == "Photo"
+      @photo = @comment.commentable
+      render template: 'photos/show', layout: 'topbar_only'
     end
   end
 

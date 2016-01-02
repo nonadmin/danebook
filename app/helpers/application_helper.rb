@@ -34,6 +34,18 @@ module ApplicationHelper
 
   end
 
+
+  # wrap a link around the block if condition is true, otherwise
+  # simply output the block with a link
+  def link_to_if_with_block condition, options, html_options={}, &block
+    if condition
+     link_to options, html_options, &block
+    else
+     capture &block
+    end
+  end
+
+
   # Generate the "You and such and such like this" line.
   # Kind of complicated due to replacing current_user with "You"
   # and handling different phrasing depending on number of likes
@@ -47,7 +59,8 @@ module ApplicationHelper
     case likers.size
     when 0
     when 1
-      names = like_profile_link(likers[0]) + " likes this."
+      like_or_likes = likers[0] == "You" ? "like" : "likes"
+      names = like_profile_link(likers[0]) + " #{like_or_likes} this."
     when 2 
       names = like_profile_link(likers[0]) + " and " +
       like_profile_link(likers[1]) + " like this."

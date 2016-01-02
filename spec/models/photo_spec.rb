@@ -12,6 +12,14 @@ describe Photo do
     it "has_attached_file :image" do
       expect(photo).to have_attached_file(:image)
     end
+
+
+    it "saves image from url if url is set" do
+      photo.image = nil
+      photo.url = ActionController::Base.new.view_context.asset_url("icon_photo_small.png", host: "http://localhost:3000")
+      photo.save
+      expect(photo.image_file_name).to eq("icon_photo_small.png")
+    end
   end
 
 
@@ -42,7 +50,7 @@ describe Photo do
 
 
     it "validates image size" do
-      expect(photo).to validate_attachment_size(:image).less_than(2.megabytes)
+      expect(photo).to validate_attachment_size(:image).less_than(5.megabytes)
     end
   end
 end
