@@ -6,8 +6,16 @@ class Photo < ActiveRecord::Base
 
   belongs_to :author, class_name: "User"
 
+  # These are horribly named but are never referenced in the application
+  # We just want to make sure the dependent nullify to fire if the photo
+  # is deleted.
+  has_one :profile_set_as_cover, foreign_key: :cover_photo_id, 
+                                 class_name: "Profile", dependent: :nullify
+  has_one :profile_set_as_profile, foreign_key: :profile_photo_id, 
+                                 class_name: "Profile", dependent: :nullify
+
   has_attached_file :image, styles: { large: "1000x800>", 
-                                      small: "150x150>", 
+                                      small: "300x300>", 
                                       thumb: "64x64#" } 
                         
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
@@ -30,5 +38,5 @@ class Photo < ActiveRecord::Base
       end
     end
   end
-  
+
 end

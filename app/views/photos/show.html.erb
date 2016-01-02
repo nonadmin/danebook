@@ -6,8 +6,25 @@
     <% if current_user == @photo.author %>    
       <div class="photo-actions text-right">
         <div class="btn-group btn-group-xs" role="group" aria-label="...">
-          <%= link_to "Set as Profile", "#", class: "btn btn-default" %>
-          <%= link_to "Set as Cover", "#", class: "btn btn-default" %>
+
+          <% if current_user.profile.profile_photo == @photo %>
+            <button type="button" class="btn btn-default" disabled="disabled">Profile Photo</button>
+          <% else %>
+            <%= link_to "Set as Profile", 
+                  change_user_photos_path(profile_photo: @photo.id), 
+                  method: :post,                  
+                  class: "btn btn-default" %>
+          <% end %>
+
+          <% if current_user.profile.cover_photo == @photo %>
+            <button type="button" class="btn btn-default" disabled="disabled">Cover Photo</button>
+          <% else %>
+            <%= link_to "Set as Cover", 
+                  change_user_photos_path(cover_photo: @photo.id), 
+                  method: :post,                  
+                  class: "btn btn-default" %>
+          <% end %>
+
           <%= link_to "Delete Photo", photo_path(@photo), 
                                       class: "btn btn-danger",
                                       method: :delete,
@@ -23,13 +40,16 @@
 
         <div class="media">
           <div class="pull-left">
-            <a href="#">
-              <%= image_tag "jeff.jpg", class: "media-object", style: "width: 64px;" %>
-            </a>
+            <% if profile_photo = @photo.author.profile.profile_photo %>
+              <%= image_tag profile_photo.image.url(:thumb), class: "media-object" %>
+            <% else %>
+              <%= image_tag "user_silhouette_generic.png", class: "media-object" %>
+            <% end %>
           </div>
+
           <div class="media-body">
-            <%= @photo.author.profile.full_name %><br>
-            <span class="light-text">
+            <%= link_to @photo.author.profile.full_name, user_timeline_path(@photo.author) %><br>
+            <span class="light-text"> 
               <time datetime="<%= @photo.created_at.strftime('%Y/%-m/%-d') %>">
                 <%= @photo.created_at.strftime('%A %-m/%-d/%Y') %>
               </time>

@@ -2,7 +2,11 @@
   <div class="well well-sm friend-box">
     <ul class="list-inline">
       <li>
-        <a href="#"><%= image_tag "user_silhouette_generic.gif" %></a>
+        <% if profile_photo = friend.profile.profile_photo %>
+          <%= image_tag profile_photo.image.url(:small) %>
+        <% else %>
+          <%= image_tag "user_silhouette_generic.png" %>
+        <% end %>
       </li>
       <li>
         <ul class="list-unstyled friend-name">

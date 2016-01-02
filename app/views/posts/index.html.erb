@@ -88,35 +88,10 @@
 
 
       <!-- Small photos box -->
-      <section class="panel panel-default">
-
-        <header class="panel-heading">
-          <h4 class="panel-title">Photos <span class="badge">123</span></h4>
-        </header>
-
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
-            <div class="col-xs-4"><a href="" class="thumbnail"><%= image_tag "icon_photo_small.png" %></a></div>
-          </div>
-        </div>
-
-        <div class="panel-footer panel-footer-left">
-          <%= link_to "See More Photos", photos_path %>
-        </div>
-
-      </section>
+      <% if @user.photos.any? %>
+        <%= render partial: "photos/photos_widget", locals:
+                   { photos: @user.photos } %>
+      <% end %>
 
 
       <!-- Small friends box -->

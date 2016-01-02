@@ -10,7 +10,7 @@ feature 'Posting timeline updates' do
     fill_in "post[body]", with: "I'm here to kick ass and chew bubble gum!"
     expect{ click_button "Post" }.to change(Post, :count).by(1)
     expect(page).to have_content("Posted to Timeline!")
-    expect(page).to have_content("Posted on")
+    expect(page).to have_content("I'm here to kick ass and chew bubble gum!")
   end
 
 

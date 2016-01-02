@@ -16,6 +16,18 @@ describe Profile do
   end
 
 
+  describe 'associations' do
+    it 'belongs to profile photo (avatar)' do
+      expect(profile).to belong_to(:profile_photo)
+    end
+
+
+    it 'belongs to cover photo' do
+      expect(profile).to belong_to(:cover_photo)
+    end
+  end
+
+
   describe '#full_name' do  
     it 'returns the first and last name, joined' do
       profile.first_name = "foo"

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :friends, only: [:create, :destroy]
   resources :photos, only: [:show, :new, :create, :destroy],
                      concerns: [:commentable, :likeable]
+  post 'change_user_photos' => 'photos#change_user_photos'
 
   resource :sessions, only: [:create, :destroy]
 

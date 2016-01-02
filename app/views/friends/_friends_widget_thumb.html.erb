@@ -1,0 +1,9 @@
+<div class="col-xs-4">
+  <%= link_to user_timeline_path(friend), class: "thumbnail" do %>
+    <% if profile_photo = friend.profile.profile_photo %>
+      <%= image_tag profile_photo.image.url(:thumb), class: "media-object" %>
+    <% else %>
+      <%= image_tag "user_silhouette_generic.png", class: "media-object" %>
+    <% end %>
+  <% end %>
+</div>

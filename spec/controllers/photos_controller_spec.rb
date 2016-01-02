@@ -108,6 +108,43 @@ describe PhotosController do
     end
 
 
+    describe "POST #change_user_photos" do
+      before do
+        photo
+        another_photo
+      end
+
+      it "changes the current user's profile photo to the photo posted" do
+        post :change_user_photos, profile_photo: photo.id
+
+        user.reload
+        expect(user.profile.profile_photo).to eq(photo)
+      end
+
+
+      it "changes the current user's cover photo to the photo posted" do
+        post :change_user_photos, cover_photo: photo.id
+
+        user.reload
+        expect(user.profile.cover_photo).to eq(photo)
+      end
+
+
+      it "errors if the photo posted is not one of the current user's" do
+        post :change_user_photos, profile_photo: another_photo.id
+
+        expect(flash[:danger]).to be_present
+      end
+
+
+      it "errors if a non-existent photo is submitted" do
+        post :change_user_photos, profile_photo: 123456
+
+        expect(flash[:danger]).to be_present
+      end
+    end
+
+
     describe "DELETE #destroy" do
       before do
         photo

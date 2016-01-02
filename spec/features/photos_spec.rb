@@ -98,8 +98,22 @@ feature "User Photos" do
 
 
     feature "Setting Profile and Cover photos" do
-      scenario "Select a photo to used as the profile/avatar"
-      scenario "Select a photo to be used as the cover photo"
+      scenario "Select a photo to used as the profile/avatar" do
+        visit photo_path(photo)
+        click_link("Set as Profile")
+
+        expect(page).to have_content("Your Profile Photo/Avatar has been changed!")
+        expect(page).to have_content("Profile Photo")
+      end
+
+
+      scenario "Select a photo to be used as the cover photo" do
+        visit photo_path(photo)
+        click_link("Set as Cover")
+
+        expect(page).to have_content("Your Cover Photo has been changed!")
+        expect(page).to have_content("Cover Photo")
+      end
     end
   end
 

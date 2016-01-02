@@ -2,23 +2,30 @@
 
   <div class="panel-body">
     <div class="media">
+
       <div class="pull-left">
-        <a href="#">
-          <%= image_tag "jeff.jpg", class: "media-object" %>
-        </a>
+        <% if profile_photo = post.author.profile.profile_photo %>
+          <%= image_tag profile_photo.image.url(:thumb), class: "media-object" %>
+        <% else %>
+          <%= image_tag "user_silhouette_generic.png", class: "media-object" %>
+        <% end %>
       </div>
+
       <div class="media-body">
         <%= link_to post.author.profile.full_name, user_timeline_path(post.author) %><br>
-        <span class="light-text">Posted on 
+        <span class="light-text"> 
           <time datetime="<%= post.created_at.strftime('%Y/%-m/%-d') %>">
             <%= post.created_at.strftime('%A %-m/%-d/%Y') %>
           </time>
         </span>
       </div>
+
     </div>
+
     <p>
       <%= post.body %>
     </p>
+    
   </div>
 
   <div class="panel-footer clearfix">

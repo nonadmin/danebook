@@ -13,7 +13,7 @@ $(document).on 'change', '.btn-file :file', ->
   return
 $(document).ready ->
   $('.btn-file :file').on 'fileselect', (event, numFiles, label) ->
-    input = $(this).parents('.input-group').find(':text')
+    input = $(this).parents('.input-group').getElementById("filename")
     log = if numFiles > 1 then numFiles + ' files selected' else label
     if input.length
       input.val log

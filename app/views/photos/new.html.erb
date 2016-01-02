@@ -31,7 +31,7 @@
                           <%= photo_form.file_field :image, value: nil %>
                       </span>
                   </span>
-                  <input type="text" class="form-control" readonly>
+                  <input id="filename" type="text" class="form-control" readonly>
                 </div>
                 <%= render partial: 'shared/form_error', 
                        locals: {errors: @photo.errors.full_messages_for(:image)} %>

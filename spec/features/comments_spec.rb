@@ -16,7 +16,7 @@ feature 'Commenting' do
       fill_in "comment[body]", with: "Remember when having the first comment was a thing?"
       expect{ click_button "Comment" }.to change(Comment, :count).by(1)
       expect(page).to have_content("Commented!")
-      expect(page).to have_content("said on")
+      expect(page).to have_content("the first comment")
     end
 
 
@@ -25,7 +25,7 @@ feature 'Commenting' do
       fill_in "comment[body]", with: "Remember when having the first comment was a thing?"
       expect{ click_button "Comment" }.to change(Comment, :count).by(1)
       expect(page).to have_content("Commented!")
-      expect(page).to have_content("said on")
+      expect(page).to have_content("the first comment")
     end
 
 
@@ -62,7 +62,7 @@ feature 'Commenting' do
       fill_in "comment[body]", with: "Remember when having the first comment was a thing?"
       expect{ click_button "Comment" }.to change(Comment, :count).by(1)
       expect(page).to have_content("Commented!")
-      expect(page).to have_content("said on")
+      expect(page).to have_content("the first comment")
     end
 
 
@@ -72,7 +72,7 @@ feature 'Commenting' do
       fill_in "comment[body]", with: "Remember when having the first comment was a thing?"
       expect{ click_button "Comment" }.to change(Comment, :count).by(1)
       expect(page).to have_content("Commented!")
-      expect(page).to have_content("said on")
+      expect(page).to have_content("the first comment")
     end
 
 

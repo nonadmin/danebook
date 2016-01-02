@@ -1,0 +1,23 @@
+<section class="panel panel-default">
+
+  <header class="panel-heading">
+    <h4 class="panel-title">Photos 
+      <span class="badge">
+        <%= @user.photos.count %>
+      </span>
+    </h4>
+  </header>
+
+  <div class="panel-body">
+    <div class="row">
+      <%= render partial: "photos/photo_widget_thumb", 
+                 collection: photos.sample(9), 
+                 as: :photo %>
+    </div>
+  </div>
+
+  <div class="panel-footer panel-footer-left">
+    <%= link_to "See More Photos", user_photos_path(@user) %>
+  </div>
+
+</section>

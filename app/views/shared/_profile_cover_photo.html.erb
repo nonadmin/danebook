@@ -1,13 +1,21 @@
 <!-- Cover photo and profile photo section -->
 <style media="all">
-  .cover-photo { background-image: url(<%= asset_path('bowl.jpg') %>); }
+  <% if cover_photo = user.profile.cover_photo %>
+    .cover-photo { background-image: url(<%= cover_photo.image.url(:large) %>); }
+  <% else %>
+    .cover-photo { background-image: url(<%= asset_path('cover_photo.jpeg') %>); }
+  <% end %>
 </style>
 
 <section class="row profile-photos">
 
   <div class="col-xs-12 cover-photo"></div>
   <div class="col-xs-3 profile-photo">
-    <%= image_tag "jeff.jpg", class: "img-responsive" %>
+    <% if profile_photo = user.profile.profile_photo %>
+      <%= image_tag profile_photo.image.url(:small), class: "img-responsive" %>
+    <% else %>
+      <%= image_tag "user_silhouette_generic.png", class: "img-responsive" %>
+    <% end %>
   </div>
   <div class="col-xs-5 profile-text">
     <h1>

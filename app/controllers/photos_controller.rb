@@ -44,6 +44,25 @@ class PhotosController < ApplicationController
   end
 
 
+  def change_user_photos
+    new_cover = current_user.photos.find_by_id(params[:cover_photo])
+    new_profile = current_user.photos.find_by_id(params[:profile_photo])
+
+    if new_cover && current_user.profile.update(cover_photo: new_cover)
+      flash[:success] = "Your Cover Photo has been changed!"
+      redirect_to photo_path(new_cover)
+
+    elsif new_profile && current_user.profile.update(profile_photo: new_profile)
+      flash[:success] = "Your Profile Photo/Avatar has been changed!"
+      redirect_to photo_path(new_profile)
+      
+    else
+      flash[:danger] = "Oops, something went wrong."
+      redirect_back_or(root_path)
+    end
+  end
+
+
   private
 
 
