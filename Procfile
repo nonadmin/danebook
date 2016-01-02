@@ -1,1 +1,1 @@
-web: bin/rails server -p $PORT -e .env
+web: bin/rails server -p $PORT
