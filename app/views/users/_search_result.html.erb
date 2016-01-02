@@ -2,7 +2,11 @@
   <div class="well well-sm search-result">
     <ul class="list-inline">
       <li>
-        <a href="#"><%= image_tag "user_silhouette_generic.gif" %></a>
+        <% if profile_photo = result.profile.profile_photo %>
+          <%= image_tag profile_photo.image.url(:small), class: "media-object" %>
+        <% else %>
+          <%= image_tag "user_silhouette_generic.png", class: "media-object" %>
+        <% end %>
       </li>
       <li>
         <ul class="list-unstyled">
