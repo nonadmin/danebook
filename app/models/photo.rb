@@ -15,7 +15,7 @@ class Photo < ActiveRecord::Base
                                  class_name: "Profile", dependent: :nullify
 
   has_attached_file :image, styles: { large: "1000x800>", 
-                                      small: "300x300>", 
+                                      small: "300x300#", 
                                       thumb: "64x64#" } 
                         
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/

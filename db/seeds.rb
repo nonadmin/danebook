@@ -61,6 +61,21 @@ users = User.all
   p.save!
 end
 
+photos = [
+  File.new("#{Rails.root}/app/assets/images/cylon.jpg"),
+  File.new("#{Rails.root}/app/assets/images/derp.jpg"),
+  File.new("#{Rails.root}/app/assets/images/dixie.jpg"),
+  File.new("#{Rails.root}/app/assets/images/hardac.jpg"),
+  File.new("#{Rails.root}/app/assets/images/leah.jpg")
+]
+users.sample(5).each do |user|
+  p = user.photos.new(image: photos.pop)
+  p.save!
+  user.profile.profile_photo = p
+  user.save!
+  User.first.friends << user
+end
+
 posts = Post.all
 ((MULTIPLIER+5)**2).times do |num|
   u = users.sample
