@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :posts, dependent: :destroy
   has_many :likes, foreign_key: "creator_id", dependent: :destroy
-  has_many :comments, foreign_key: "author_id"
+  has_many :comments, foreign_key: "author_id", dependent: :destroy
   has_many :photos, foreign_key: "author_id", dependent: :destroy
 
   has_many :initiated_friendings, foreign_key: :friender_id,
