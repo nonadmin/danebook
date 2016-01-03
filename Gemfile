@@ -48,7 +48,7 @@ gem 'figaro'
 
 # Delayed Jobs
 gem 'delayed_job_active_record'
-gem 'daemon'
+gem 'daemons'
 
 group :development, :test do
   # Testing

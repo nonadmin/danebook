@@ -6,12 +6,13 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 User.destroy_all
+ActionMailer::Base.perform_deliveries = false
 
 MULTIPLIER = 10
 
-def rand_birthday
-  from = (50.years.ago) 
-  to = (13.years.ago)
+def rand_date(year_from, year_to)
+  from = (year_from.years.ago) 
+  to = (year_to.years.ago)
   Time.at(rand(from..to))
 end
 
@@ -19,27 +20,13 @@ def rand_location
   "#{Faker::Address.city}, #{Faker::Address.state}"
 end
 
-first_u = User.new
-first_u.email = "test@example.com"
-first_u.password = "fooBAR01"
-p = Profile.new
-p.birthday = rand_birthday
-p.first_name = "Justin"
-p.last_name = "Mullis"
-first_u.profile = p
-first_u.save!
-po = first_u.posts.new(body: Faker::Hipster.paragraph(4))
-po.save!
-co = Post.first.comments.new(author: first_u, body:Faker::Hipster.paragraph)
-co.save!
-
-(MULTIPLIER*4).times do |num|
+def create_user(email = nil)
   u = User.new
-  u.email = Faker::Internet.email
+  u.email = email.nil? ? Faker::Internet.email : email
   u.password = "fooBAR01"
 
   p = Profile.new
-  p.birthday = rand_birthday
+  p.birthday = rand_date(50, 13)
   p.gender = ["male", "female", ""].sample
   p.first_name = Faker::Name.first_name
   p.last_name = Faker::Name.last_name
@@ -54,10 +41,25 @@ co.save!
   u.save!
 end
 
+# create some users that will get a lot of comments and likes
+create_user("justin.mullis@gmail.com")
+create_user("justin@nightiron.com")
+po = User.first.posts.new(body: Faker::Hipster.paragraph(4))
+po.save!
+co = Post.first.comments.new(author: User.first, body:Faker::Hipster.paragraph)
+co.save!
+
+# create some more generic users
+(MULTIPLIER*4).times do |num|
+  create_user
+end
+
 users = User.all
 (MULTIPLIER**2).times do |num|
   u = users.sample
   p = u.posts.new(body: Faker::Hipster.paragraph(4))
+  p.save!
+  p.created_at = rand_date(3,1)
   p.save!
 end
 

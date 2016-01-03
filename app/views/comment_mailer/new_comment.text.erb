@@ -1,0 +1,13 @@
+Hi, <%= @comment.commentable.author.profile.first_name %>
+
+<%= @comment.author.profile.full_name %> left a comment on your <%= @comment.commentable_type.downcase %>:
+
+"<%= "#{@comment.body[0..100]}..." %>"
+
+View the comment here:
+
+<% if @comment.commentable_type == "Post" %>
+<%= user_timeline_url(@comment.commentable.author) %>
+<% elsif @comment.commentable_type == "Photo" %>
+<%= photo_url(@comment.commentable) %>
+<% end %>

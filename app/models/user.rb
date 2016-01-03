@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
                        allow_nil: true
 
   after_create do
-    User.send_welcome_email(self.id)
+    User.delay.send_welcome_email(self.id)
   end
 
   def regenerate_auth_token
