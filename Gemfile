@@ -41,11 +41,14 @@ gem 'bootstrap-sass'
 gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
 
-
 # File Uploads
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'figaro'
+
+# Delayed Jobs
+gem 'delayed_job_active_record'
+gem 'daemon'
 
 group :development, :test do
   # Testing
@@ -64,7 +67,9 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-    
+
+  # Mail testing
+  gem 'letter_opener'  
 end
 
 group :development do

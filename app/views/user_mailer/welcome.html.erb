@@ -1,0 +1,19 @@
+<h1>Welcome to Danebook, <%= @user.profile.first_name.capitalize %></h1>
+
+<p>
+  We're excited that you signed up, you can visit your 
+  <%= link_to "timeline", user_timeline_url(@user) %> and start posting!
+</p>
+
+<p>
+  Here's a few users you might considering friending
+</p>
+
+<% @suggested_friends.each do |friend| %>
+  <p>
+    <%= link_to user_timeline_url(friend) do %>
+      <%= image_tag friend.profile.profile_photo.image.url(:small) %><br>
+      <strong><%= friend.profile.full_name %></strong>
+    <% end %>
+  </p>
+<% end %>

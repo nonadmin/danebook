@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
                                  message: "requires 1 Uppercase, 1 lowercase, and 1 digit" },
                        allow_nil: true
 
+  after_create do
+    User.send_welcome_email(self.id)
+  end
+
   def regenerate_auth_token
     self.auth_token = nil
     generate_token
@@ -55,6 +59,20 @@ class User < ActiveRecord::Base
       results = Profile.where(search_conditions)
       find(results.pluck(:user_id)) if results.any?
     end
+  end
+
+
+  def self.with_profile_photos
+    User.includes(:profile).where.not(profiles: {profile_photo_id: nil})
+  end
+
+
+  private
+
+
+  def self.send_welcome_email(user_id)
+    user = User.find_by_id(user_id)
+    UserMailer.welcome(user).deliver_now
   end
 
 end

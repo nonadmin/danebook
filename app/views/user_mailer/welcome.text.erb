@@ -1,0 +1,10 @@
+Welcome to Danebook, <%= @user.profile.first_name.capitalize %>
+
+We're excited that you signed up, you can visit your 
+timeline here: user_timeline_url(@user)
+
+Here's a few users you might considering friending
+<% @suggested_friends.each do |friend| %>
+  <%= friend.profile.full_name %>
+  <%= user_timeline_url(friend) %>
+<% end %>
