@@ -41,7 +41,7 @@ module ApplicationHelper
     if condition
      link_to options, html_options, &block
     else
-     capture &block
+     link_to "#", html_options, &block
     end
   end
 
