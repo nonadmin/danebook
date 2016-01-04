@@ -11,6 +11,7 @@ describe User do
 
     it 'is invalid without an email address' do
       user.email = ''
+
       expect(user).not_to be_valid
     end
 
@@ -22,6 +23,7 @@ describe User do
 
     it 'is invalid without a profile' do
       user.profile = nil
+
       expect(user).not_to be_valid
     end    
 
@@ -61,24 +63,28 @@ describe User do
 
     it "returns users with first or last name matching the search term" do
       results = User.search_by_name("bar")
+
       expect(results.size).to eq(3)
     end
 
 
     it "returns results with partial matches" do
       results = User.search_by_name("f")
+
       expect(results.size).to eq(3)
     end
 
 
     it "returns nil if search string is empty" do
       results = User.search_by_name(" ")
+
       expect(results).to be_nil
     end
 
 
     it "returns nil if there are no results" do
       results = User.search_by_name("dixie")
+      
       expect(results).to be_nil
     end
   end

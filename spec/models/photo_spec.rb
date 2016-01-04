@@ -18,6 +18,7 @@ describe Photo do
       photo.image = nil
       photo.url = ActionController::Base.new.view_context.asset_url("missing_small.png", host: "http://localhost:3000")
       photo.save
+      
       expect(photo.image_file_name).to eq("missing_small.png")
     end
   end

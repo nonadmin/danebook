@@ -8,6 +8,7 @@ describe Like do
   describe 'attributes' do
     it 'only allows a user to like something once' do
       like.likeable = post
+
       expect(like).to be_valid
     end
 
@@ -15,6 +16,7 @@ describe Like do
       like.likeable = post
       like.save!
       another_like = build(:like, creator: user, likeable: post) 
+      
       expect(another_like).not_to be_valid      
     end
   end

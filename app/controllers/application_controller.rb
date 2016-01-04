@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
 
   def sign_out
     @current_user = nil
+    session.delete(:forwarding_url)
     cookies.delete(:auth_token)
   end
 

@@ -15,11 +15,13 @@ describe Post do
 
     it 'is invalid without an author' do
       post.user_id = 101010
+
       expect(post).not_to be_valid
     end
 
     it 'is invalid with too short of a body' do
       post.body = "a"
+
       expect(post).not_to be_valid
     end
   end
@@ -28,6 +30,7 @@ describe Post do
     it 'orders by descending creation date' do
       post_one = create(:post)
       post_two = create(:post)
+      
       expect(Post.all).to eq([post_two, post_one])
     end
   end

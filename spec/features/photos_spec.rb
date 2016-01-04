@@ -51,6 +51,7 @@ feature "User Photos" do
       scenario "Add a new photo by uploading from computer" do
         visit new_photo_path
         attach_file "photo[image]", "#{Rails.root}/spec/support/test.png"
+
         expect { click_button("Upload Photo") }.to change(user.photos, :count).by(1)    
       end
 
@@ -58,6 +59,7 @@ feature "User Photos" do
       scenario "Add a new photo from a web address" do
         visit new_photo_path
         fill_in "photo[url]", with: photo_url
+        
         expect { click_button("Upload Photo") }.to change(user.photos, :count).by(1)    
       end
     end

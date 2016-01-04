@@ -24,6 +24,7 @@ feature 'User accounts' do
     fill_in "user[profile_attributes][first_name]", with: "foo"
     fill_in "user[profile_attributes][last_name]", with: "bar"
     fill_in "user[email]", with: "foo@example.com"
+
     expect{ click_button "Sign Up!" }.not_to change(User, :count)
     expect(page).to have_content("something went wrong")
     expect(page).to have_content("can't be blank")
@@ -39,6 +40,7 @@ feature "User sign-in" do
     fill_in "email", with: user.email
     fill_in "password", with: "fooBAR01"
     click_button "Logon"
+
     expect(page).to have_content("Welcome back, #{user.profile.first_name.capitalize}")
     expect(page).to have_content("Words to Live By")
   end
@@ -48,6 +50,7 @@ feature "User sign-in" do
     fill_in "email", with: "invalid@example.com"
     fill_in "password", with: "badpass"
     click_button "Logon"
+
     expect(page).to have_content("We couldn't sign you in!")
   end
 
@@ -57,6 +60,7 @@ feature "User sign-in" do
     fill_in "email", with: user.email
     fill_in "password", with: "fooBAR01"
     click_button "Logon"
+    
     expect(page).to have_content("Welcome back, #{user.profile.first_name.capitalize}")
     expect(page).to have_content("#{another_user.profile.full_name}")
   end

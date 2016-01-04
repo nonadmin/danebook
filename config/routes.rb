@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resource :sessions, only: [:create, :destroy]
 
   get 'signup'      => 'users#new'
+  get 'signout'     => 'sessions#destroy'
   get 'newsfeed'    => 'posts#newsfeed'
   root 'users#new'
 

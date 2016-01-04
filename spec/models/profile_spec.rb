@@ -11,6 +11,7 @@ describe Profile do
 
     it 'is invalid when the user is too young' do
       profile.birthday = 10.years.ago
+
       expect(profile).not_to be_valid
     end
   end
@@ -32,6 +33,7 @@ describe Profile do
     it 'returns the first and last name, joined' do
       profile.first_name = "foo"
       profile.last_name = "bar"
+      
       expect(profile.full_name).to eq("Foo Bar")
     end
   end

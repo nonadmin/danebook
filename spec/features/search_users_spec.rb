@@ -13,7 +13,7 @@ feature "Searching for users" do
     click_button("Search", visible: false)
 
     expect(page).to have_content("Showing 4 users")
-    expect(page).to have_content("Friends", count: 4)
+    expect(page).to have_link("Friend Me!", count: 3)
   end
 
 

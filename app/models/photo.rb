@@ -30,7 +30,7 @@ class Photo < ActiveRecord::Base
   process_in_background :image
 
   private
-
+  
 
   def image_from_url
     unless self.url.blank?

@@ -32,6 +32,7 @@ describe FriendsController do
 
       it "flashes an error if the new friendship is invalid" do
         post :create, id: 1234
+        
         expect(flash[:danger]).to be_present
       end
     end

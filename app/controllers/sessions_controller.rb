@@ -15,6 +15,18 @@ class SessionsController < ApplicationController
   end
 
 
+  def destroy
+    sign_out
+    unless signed_in_user?
+      flash[:info] = "Signed out, Come back soon!"
+      redirect_to signup_path
+    else
+      flash[:danger] = "Oops, we couldn't sign you out!"
+      redirect_to signup_path
+    end
+  end
+
+
   private
 
 

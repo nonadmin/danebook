@@ -20,6 +20,7 @@ feature 'Liking posts, comments, etc' do
 
   scenario 'A User can unlike posts' do
     click_link "Like"
+    
     expect { click_link "Unlike" }.to change(Like, :count).by(-1)
     expect(page).to have_content("You unliked the Post!")    
   end

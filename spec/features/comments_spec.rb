@@ -14,6 +14,7 @@ feature 'Commenting' do
 
     scenario 'User can comment on their posts' do
       fill_in "comment[body]", with: "Remember when having the first comment was a thing?"
+
       expect{ click_button "Comment" }.to change(Comment, :count).by(1)
       expect(page).to have_content("Commented!")
       expect(page).to have_content("the first comment")
@@ -23,6 +24,7 @@ feature 'Commenting' do
     scenario 'User can comment on the posts of others' do
       visit user_timeline_path(another_user)
       fill_in "comment[body]", with: "Remember when having the first comment was a thing?"
+
       expect{ click_button "Comment" }.to change(Comment, :count).by(1)
       expect(page).to have_content("Commented!")
       expect(page).to have_content("the first comment")
@@ -31,6 +33,7 @@ feature 'Commenting' do
 
     scenario "User can't make comments that are too short" do
       fill_in "comment[body]", with: "nay"
+
       expect{ click_button "Comment" }.not_to change(Comment, :count)
       expect(page).to have_content("Oops")
     end
@@ -39,10 +42,12 @@ feature 'Commenting' do
     scenario "Users can delete their own comments" do
       fill_in "comment[body]", with: "Dust to dust"
       click_button "Comment"
+
       expect do
         page.find(".comment").click_link('Delete')
         click_link "Delete" 
       end.to change(Comment, :count).by(-1)
+
       expect(page).not_to have_content("Dust to dust")
     end  
   end
@@ -60,6 +65,7 @@ feature 'Commenting' do
 
     scenario 'User can comment on their photos' do
       fill_in "comment[body]", with: "Remember when having the first comment was a thing?"
+
       expect{ click_button "Comment" }.to change(Comment, :count).by(1)
       expect(page).to have_content("Commented!")
       expect(page).to have_content("the first comment")
@@ -70,6 +76,7 @@ feature 'Commenting' do
       another_user.friends << user
       visit photo_path(another_photo)
       fill_in "comment[body]", with: "Remember when having the first comment was a thing?"
+
       expect{ click_button "Comment" }.to change(Comment, :count).by(1)
       expect(page).to have_content("Commented!")
       expect(page).to have_content("the first comment")
@@ -78,6 +85,7 @@ feature 'Commenting' do
 
     scenario "User can't make comments that are too short" do
       fill_in "comment[body]", with: "nay"
+
       expect{ click_button "Comment" }.not_to change(Comment, :count)
       expect(page).to have_content("Oops")
     end
@@ -86,10 +94,12 @@ feature 'Commenting' do
     scenario "Users can delete their own comments" do
       fill_in "comment[body]", with: "Dust to dust"
       click_button "Comment"
+
       expect do
         page.find(".comment").click_link('Delete')
         click_link "Delete" 
       end.to change(Comment, :count).by(-1)
+      
       expect(page).not_to have_content("Dust to dust")
     end  
   end  

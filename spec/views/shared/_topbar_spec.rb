@@ -4,6 +4,7 @@ describe "shared/_topbar.html.erb" do
   context "signed out" do
     it "shows the logon form" do
       render
+      
       expect(rendered).to have_selector("input[name='password']")
     end
   end
@@ -18,8 +19,7 @@ describe "shared/_topbar.html.erb" do
       render
 
       expect(rendered).to have_link(
-        "#{@current_user.profile.first_name.capitalize}",
-        href: user_profile_path(@current_user)
+        "#{@current_user.profile.first_name.capitalize}"
       )
     end
   end

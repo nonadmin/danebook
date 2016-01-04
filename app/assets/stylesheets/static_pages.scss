@@ -30,15 +30,68 @@ $dark-gray: #888;
 // Inverse Navbar, get the brand logo and text vertically  
 // aligned, and change the font size and color on elements
 
-.navbar {
-  background-color: #2B78E4;
-  border-radius: 0;
-  border: 0;
-  border-bottom: 1px solid #000;
-  color: white;
-    a {
-      color: #D0D0D0;
+$bgDefault      : #2b78e4;
+$bgHighlight    : #2468c7;
+$colDefault     : #ecf0f1;
+$colHighlight   : #b8d6ff;
+$dropDown       : false;
+.navbar-default {
+  background-color: $bgDefault;
+  border-color: $bgHighlight;
+  .navbar-brand {
+    color: $colDefault;
+    &:hover, &:focus { 
+      color: $colHighlight; }}
+  .navbar-text {
+    color: $colDefault; }
+  .navbar-nav {
+    > li {
+      > a {
+        color: $colDefault;
+        &:hover,  &:focus {
+          color: $colHighlight; }}
+      @if $dropDown {
+        > .dropdown-menu {
+          background-color: $bgDefault;
+          > li > a {
+            color: $colDefault;
+            &:hover,  &:focus {
+              color: $colHighlight;
+              background-color: $bgHighlight; }}
+          .divider {
+            background-color: $bgHighlight;}}}
     }
+    > .active {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}
+    > .open {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}}
+  .navbar-toggle {
+    border-color: $bgHighlight;
+    &:hover, &:focus {
+      background-color: $bgHighlight; }
+    .icon-bar {
+      background-color: $colDefault; }}
+  .navbar-collapse,
+  .navbar-form {
+    border-color: $colDefault; }
+  .navbar-link {
+    color: $colDefault;
+    &:hover {
+      color: $colHighlight; }}}
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu {
+    > li > a {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight; }}
+    > .active {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}}
 }
 
 #top-bar .navbar-brand {
@@ -55,10 +108,29 @@ $dark-gray: #888;
 
 }
 
+/*
+.navbar {
+  background-color: #2B78E4;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid #000;
+  color: white;
+    a {
+      color: #D0D0D0;
+    }
+}
+
+
+
 #top-bar .navbar-nav li>a {
   color: white;
   font-size: 1.25em;
 }
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  border: 0px;
+}
+*/
 
 
 // Push content out from under fixed navbar
