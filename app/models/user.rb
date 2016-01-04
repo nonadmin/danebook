@@ -43,6 +43,16 @@ class User < ActiveRecord::Base
   end
 
 
+  def newsfeed
+    Post.where("user_id = ? OR user_id IN (?)", self.id, self.friends.ids)
+  end
+
+
+  def friends_activity
+    Post.where("user_id IN (?)", self.friends.ids)
+  end
+
+
   # Constructs a gross looking but efficient WHERE query to search
   # first_name and last_name of profiles for each word in the search
   # string (assuming seperation by space)

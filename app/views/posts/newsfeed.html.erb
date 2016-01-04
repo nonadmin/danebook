@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-sm-8 col-sm-push-4 col-newsfeed">
+
+    <%= form_for(@post) do |post_form| %>
+      <div class="panel panel-default">
+        
+        <header class="panel-heading">
+          <h4 class="panel-title">Post</h4>
+        </header>
+        <div class="panel-body">
+        <div class="form-group">
+          <%= post_form.label :body, class: "sr-only" %>
+          <%= post_form.text_area :body, placeholder: "Tell the world something...", rows: 4 %>
+          <%= render partial: 'shared/form_error', locals: {errors: @post.errors.full_messages_for(:body)} %>
+        </div>
+        </div>
+        <div class="panel-footer clearfix">
+          <%= post_form.submit "Post", class: "btn btn-primary pull-right" %>
+        </div>
+        
+      </div>
+    <% end %>
+
+    <% if @posts.any? %>
+      <%= render partial: @posts %>
+      <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+    <% else %>
+      <div class="panel panel-default">
+        <div class="panel-body text-center">
+          <h4>No news is good news?  Add some friends and you'll see 
+          their posts here.</h4>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+
+  <div class="col-sm-4 col-sm-pull-8 col-newsfeed">
+
+    <div class="media newsfeed-profile">
+      <div class="pull-left">
+        <% if profile_photo = current_user.profile.profile_photo %>
+          <%= image_tag profile_photo.image.url(:small), class: "media-object" %>
+        <% else %>
+          <%= image_tag "user_silhouette_generic.png", class: "media-object" %>
+        <% end %>
+      </div>
+
+      <div class="media-body">
+        <h4>
+          <%= link_to current_user.profile.full_name, user_timeline_path(current_user) %>
+        </h4>
+        <%= link_to "Edit Profile", edit_profile_path %>
+      </div>
+    </div>
+    
+    <% if @activity.any? %>
+      <div class="recent-activity">
+        <hr>
+        <h3>Recently Active</h3>
+        <%= render partial: "newsfeed_activity_link", collection: @activity,
+                                                      as: :friend_post %>
+        
+        <h5>
+          <hr>
+          <%= link_to "See All Your Friends", user_friends_path(current_user)  %>
+        </h5>      
+      </div>
+    <% end %>
+
+  </div>
+</div>

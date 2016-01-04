@@ -149,8 +149,9 @@ body {
   text-align: center;
 }
 
-.media img {
+.byline-img img {
   width: 64px;
+  margin-bottom: 5px;
 }
 
 .newsfeed {
@@ -161,6 +162,14 @@ body {
 
 .newsfeed .comment {
   margin-left: 20px;
+}
+
+.newsfeed-profile img {
+  width: 100px;
+}
+
+.col-newsfeed {
+  padding: 20px;
 }
 
 

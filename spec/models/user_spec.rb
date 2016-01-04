@@ -82,4 +82,19 @@ describe User do
       expect(results).to be_nil
     end
   end
+
+
+  describe '#newsfeed' do
+    let(:user) { create(:user_with_posts) }
+    let(:another_user) { create(:user_with_posts) }
+
+    before do
+      user.friends << another_user
+    end
+
+
+    it "returns all of the user's posts and all of their friends' posts" do
+      expect(user.newsfeed).to match_array(Post.all)
+    end
+  end
 end

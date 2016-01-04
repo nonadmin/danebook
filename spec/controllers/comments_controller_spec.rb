@@ -20,10 +20,12 @@ describe CommentsController do
 
         expect(assigns(:comment).author).to eq(user)
       end
-      it "renders parent with error if body is too short" do
+
+      
+      it "renders an error if the comment is invalid" do
         post :create, post_id: apost.id, comment: {body: "a"}
 
-        expect(response).to render_template 'posts/index'
+        expect(flash[:danger]).to be_present
       end
     end
 
@@ -65,7 +67,7 @@ describe CommentsController do
       it "renders parent with error if body is too short" do
         post :create, photo_id: aphoto.id, comment: {body: "a"}
 
-        expect(response).to render_template 'photos/show'
+        expect(flash[:danger]).to be_present
       end
     end
 

@@ -52,7 +52,7 @@ class UsersController < ApplicationController
 
   def redirect_signed_in_user
     if signed_in_user?
-      redirect_to user_timeline_path(current_user)
+      redirect_to newsfeed_path
     end
   end
 

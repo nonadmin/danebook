@@ -19,7 +19,7 @@ feature 'Posting timeline updates' do
     visit user_timeline_path(user)
     fill_in "post[body]", with: ":-)"
     expect{ click_button "Post" }.not_to change(Post, :count)
-    expect(page).to have_content("Body is too short")
+    expect(page).to have_content("Oops")
   end
 
 

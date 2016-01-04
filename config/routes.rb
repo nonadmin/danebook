@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resource :sessions, only: [:create, :destroy]
 
   get 'signup'      => 'users#new'
+  get 'newsfeed'    => 'posts#newsfeed'
   root 'users#new'
 
   # The priority is based upon order of creation: first created -> highest priority.

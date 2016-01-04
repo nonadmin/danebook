@@ -3,7 +3,7 @@
   <div class="panel-body">
     <div class="media">
 
-      <div class="pull-left">
+      <div class="pull-left byline-img">
         <% if profile_photo = post.author.profile.profile_photo %>
           <%= image_tag profile_photo.image.url(:thumb), class: "media-object" %>
         <% else %>

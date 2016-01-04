@@ -32,7 +32,7 @@ feature 'Commenting' do
     scenario "User can't make comments that are too short" do
       fill_in "comment[body]", with: "nay"
       expect{ click_button "Comment" }.not_to change(Comment, :count)
-      expect(page).to have_content("Body is too short")
+      expect(page).to have_content("Oops")
     end
 
 
@@ -79,7 +79,7 @@ feature 'Commenting' do
     scenario "User can't make comments that are too short" do
       fill_in "comment[body]", with: "nay"
       expect{ click_button "Comment" }.not_to change(Comment, :count)
-      expect(page).to have_content("Body is too short")
+      expect(page).to have_content("Oops")
     end
 
 

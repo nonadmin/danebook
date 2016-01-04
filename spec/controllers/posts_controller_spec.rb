@@ -21,11 +21,21 @@ describe PostsController do
       request.cookies["auth_token"] = user.auth_token
     end
 
+
     describe 'GET #index' do
       it "sets a blank post for the current user's timeline" do
         get :index, user_id: user.id
 
         expect(assigns(:post)).to be_a_new(Post)
+      end
+    end
+
+
+    describe "GET #newsfeed" do
+      it "renders the newfeed template" do
+        get :newsfeed
+
+        expect(response).to render_template(:newsfeed)
       end
     end
 
@@ -36,14 +46,14 @@ describe PostsController do
           post :create, user_id: user.id, post: attributes_for(:post)
         }.to change(Post, :count).by(1)
 
-        expect(response).to redirect_to user_timeline_path(user)
+        expect(response).to redirect_to newsfeed_path
       end
 
 
-      it 're-renders the index if the post is invalid' do
+      it 'flashes an error if the post is invalid' do
         post :create, user_id: user.id, post: {body: "a"}
 
-        expect(response).to render_template :index
+        expect(flash[:danger]).to be_present
       end    
     end
 

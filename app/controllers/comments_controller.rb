@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
       redirect_back_or(root_path)
     else
       flash[:danger] = "Oops, something went wrong!"
-      render_parent
+      redirect_back_or(root_path)
     end
   end
 
@@ -36,17 +36,17 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:body)
   end
 
-
-  def render_parent
-    if @comment.commentable_type == "Post"
-      @user = @comment.commentable.author
-      @post = @user.posts.new if @user == current_user
-      render template: 'posts/index'
-    elsif  @comment.commentable_type == "Photo"
-      @photo = @comment.commentable
-      render template: 'photos/show', layout: 'topbar_only'
-    end
-  end
+  
+  # def render_parent
+  #   if @comment.commentable_type == "Post"
+  #     @user = @comment.commentable.author
+  #     @post = @user.posts.new if @user == current_user
+  #     render template: 'posts/index'
+  #   elsif  @comment.commentable_type == "Photo"
+  #     @photo = @comment.commentable
+  #     render template: 'photos/show', layout: 'topbar_only'
+  #   end
+  # end
 
 
   def find_parent
