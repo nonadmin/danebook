@@ -16,9 +16,9 @@ describe Photo do
 
     it "saves image from url if url is set" do
       photo.image = nil
-      photo.url = ActionController::Base.new.view_context.asset_url("icon_photo_small.png", host: "http://localhost:3000")
+      photo.url = ActionController::Base.new.view_context.asset_url("missing_small.png", host: "http://localhost:3000")
       photo.save
-      expect(photo.image_file_name).to eq("icon_photo_small.png")
+      expect(photo.image_file_name).to eq("missing_small.png")
     end
   end
 

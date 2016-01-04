@@ -45,6 +45,7 @@ gem 'will_paginate-bootstrap'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'figaro'
+gem 'delayed_paperclip'
 
 # Delayed Jobs
 gem 'delayed_job_active_record'

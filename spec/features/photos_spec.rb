@@ -7,7 +7,7 @@ feature "User Photos" do
   let(:another_photo) { create(:photo) }
 
   context "visitor" do
-    before do
+    before :each do
       user
       photo
     end
@@ -15,6 +15,7 @@ feature "User Photos" do
     feature "User's Photo gallery/index" do
       scenario "Visitors can view any user's photo gallery" do
         visit user_photos_path(user)
+        photo.reload # background processing is off, but will still give missing url
 
         expect(page).to have_xpath("//img[@src=\"#{photo.image.url(:small)}\"]")
       end
@@ -44,7 +45,7 @@ feature "User Photos" do
     feature "Uploading" do
       let(:photo_url) do
         ActionController::Base.new.view_context.
-          asset_url("icon_photo_small.png", host: "http://localhost:3000")
+          asset_url("missing_small.png", host: "http://localhost:3000")
       end
 
       scenario "Add a new photo by uploading from computer" do
@@ -75,6 +76,7 @@ feature "User Photos" do
     feature "Show individual Photo" do
       scenario "View an individual photo at a larger size" do
         visit photo_path(photo)
+        photo.reload # background processing issue
 
         expect(page).to have_xpath("//img[@src=\"#{photo.image.url(:large)}\"]")
       end

@@ -14,7 +14,8 @@ class PhotosController < ApplicationController
   def create
     @photo = current_user.photos.new(photo_params)
     if @photo.save
-      flash[:success] = "New Photo Uploaded!"
+      flash[:success] = "New Photo added.  It is processing, reload this page 
+                         after a moment and the photo will appear below."
       redirect_to @photo
     else
       flash.now[:danger] = "Oops, something went wrong!"

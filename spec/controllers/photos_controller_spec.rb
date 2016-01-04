@@ -41,7 +41,7 @@ describe PhotosController do
     describe "POST #create" do
       let(:photo_url) do
         ActionController::Base.new.view_context.
-          asset_url("icon_photo_small.png", host: "http://localhost:3000")
+          asset_url("missing_small.png", host: "http://localhost:3000")
       end
 
       let(:photo_upload) do

@@ -14,9 +14,11 @@ class Photo < ActiveRecord::Base
   has_one :profile_set_as_profile, foreign_key: :profile_photo_id, 
                                  class_name: "Profile", dependent: :nullify
 
-  has_attached_file :image, styles: { large: "1000x800>", 
-                                      small: "300x300#", 
-                                      thumb: "64x64#" } 
+  has_attached_file :image, 
+      styles: { large: "1000x800>", small: "300x300#", thumb: "64x64#" },
+      default_url: ->(attachment) { 
+        ActionController::Base.helpers.asset_path('missing_large.png') }
+
                         
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   validates_attachment_size :image, less_than: 5.megabytes
@@ -25,7 +27,8 @@ class Photo < ActiveRecord::Base
 
   before_validation :image_from_url
 
-  
+  process_in_background :image
+
   private
 
 
