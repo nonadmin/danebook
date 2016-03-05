@@ -71,7 +71,7 @@ class PhotosController < ApplicationController
     params.require(:photo).permit(:image, :url)
   end
 
-
+  # model method?  on photo?
   def friends_only
     friends = @photo.author.friends
 
