@@ -8,10 +8,18 @@ class CommentsController < ApplicationController
     @comment.author = current_user
     if @comment.save
       flash[:success] = "Commented!"
-      redirect_back_or(root_path)
+      
+      respond_to do |format|
+        format.html { redirect_back_or(root_path) }
+        format.js {  } # create.js.erb
+      end
     else
       flash[:danger] = "Oops, something went wrong!"
-      redirect_back_or(root_path)
+
+      respond_to do |format|
+        format.html { redirect_back_or(root_path) }
+        format.js { head :none }
+      end
     end
   end
 

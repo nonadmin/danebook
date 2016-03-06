@@ -11,8 +11,8 @@
 
       <!-- New Timeline Post input textarea -->
       <% if current_user == @user %>
-        <%= form_for(@post) do |post_form| %>
-          <section class="panel panel-default">
+        <section id="post-form" class="panel panel-default">
+          <%= form_for @post, remote: true do |post_form| %>
             
             <header class="panel-heading">
               <h4 class="panel-title">Post</h4>
@@ -28,8 +28,8 @@
               <%= post_form.submit "Post", class: "btn btn-primary pull-right" %>
             </div>
             
-          </section>
-        <% end %>
+          <% end %>
+        </section>
       <% end %>
 
       <!-- Timeline News Feed -->      

@@ -1,4 +1,4 @@
-<div class="row photo-row">
+<div class="row photo-row" data-type="photo" data-id="<%= @photo.id %>">
   <div class="col-md-8">
     <div class="photo-container">
       <%= image_tag @photo.image.url(:large), class: "img-responsive center-block" %>

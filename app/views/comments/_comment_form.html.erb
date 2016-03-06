@@ -1,17 +1,19 @@
 <!-- if/else here to handle comment with errors, @comment will be set -->
-<% if @comment && @comment.commentable_id == parent.id %>
-  <% new_comment = @comment %>
-<% else %>
-  <% new_comment = parent.comments.new %>
-<% end %>
-<%= form_for([parent, new_comment]) do |comment_form| %>
+<div data-type="comment-form">
+  <% if @comment && @comment.commentable_id == parent.id %>
+    <% new_comment = @comment %>
+  <% else %>
+    <% new_comment = parent.comments.new %>
+  <% end %>
+  <%= form_for [parent, new_comment], remote: true do |comment_form| %>
 
-  <%= comment_form.label :body, class: "sr-only" %>
-  <%= comment_form.text_area :body, placeholder: "Write a comment...", rows: 4 %>
-  <%= render partial: 'shared/form_error', locals: {errors: new_comment.errors.full_messages_for(:body)} %>
- 
-  <div class="pull-right">
-    <%= comment_form.submit "Comment", class: "btn btn-primary" %>
-  </div>
+    <%= comment_form.label :body, class: "sr-only" %>
+    <%= comment_form.text_area :body, placeholder: "Write a comment...", rows: 4 %>
+    <%= render partial: 'shared/form_error', locals: {errors: new_comment.errors.full_messages_for(:body)} %>
+   
+    <div class="pull-right">
+      <%= comment_form.submit "Comment", class: "btn btn-primary" %>
+    </div>
 
-<% end %>
+  <% end %> 
+</div>

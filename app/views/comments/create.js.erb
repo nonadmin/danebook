@@ -1,0 +1,13 @@
+console.log('top');
+(function(){
+
+  var parentID = <%= @comment.commentable.id %>
+  var parentType = "<%= @comment.commentable.class.to_s.downcase %>"
+
+  DB.Comment.create( 
+    "<%= j(render partial: 'comment', :locals => { comment: @comment } ) %>",
+    parentID, parentType
+  );
+
+})();
+console.log('bottom');

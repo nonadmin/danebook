@@ -19,10 +19,18 @@ class PostsController < ApplicationController
     @post = current_user.posts.new(post_params)
     if @post.save
       flash[:success] = "Posted to Timeline!"
-      redirect_back_or(newsfeed_path)
+
+      respond_to do |format|
+        format.html { redirect_back_or(newsfeed_path) }
+        format.js { } # hits create.js.erb
+      end
     else
       flash[:danger] = "Oops, something went wrong!"
-      redirect_back_or(newsfeed_path)
+
+      respond_to do |format|
+        format.html { redirect_back_or(newsfeed_path) }
+        format.js { head :none }
+      end
     end
   end
 
